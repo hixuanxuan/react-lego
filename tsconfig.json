@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "jsx": "react",
+    "target": "es5",
+    "lib": ["es6", "dom"],
+    "types": ["node"],
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "typeRoots": ["typings", "./node_modules/@types"],
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"],
+    }
+  },
+  "include": ["src", "tests"],
+  "exclude": ["node_modules", "webpack.config.js", "gulpfile.js"]
+}
