@@ -6,7 +6,6 @@ const WebpackBar = require('webpackbar');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const mode = argv.mode || 'development';
-
 const mergeConfig = require(`./config/webpack.${mode}.js`);
 
 const webpackBaseConfig = {
@@ -51,6 +50,17 @@ const webpackBaseConfig = {
                     },
                     'postcss-loader',
                     'less-loader',
+                    {
+                        loader: 'sass-resources-loader',
+                        options: {
+                            // common.less 自己的公共变量路径
+                            resources: [
+                                resolve(
+                                    './src/static/css/vars.less',
+                                ),
+                            ],
+                        },
+                    },
                 ],
             },
             {
@@ -76,6 +86,10 @@ const webpackBaseConfig = {
         extensions: ['.js', '.ts', '.tsx', 'jsx'],
         alias: {
             '@': resolve('./src'),
+            '@imgs': resolve('./src/static/imgs'),
+            '@css': resolve('./src/static/css'),
+            '@utils': resolve('./src/utils'),
+            '@layout': resolve('./src/layout')
         },
     },
 };

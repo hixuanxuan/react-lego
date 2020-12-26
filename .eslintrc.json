@@ -17,13 +17,13 @@
     "no-unused-vars": "error",
     "no-undef": "warn",
     "arrow-parens": "off",
-    "no-console": [
-      "error",
-      {
-        "allow": [
-          "error"
-        ]
-      }
-    ]
+    "indent": ["error", 4],
+    "react/jsx-indent": ["error", 4],
+    "@typescript-eslint/indent" : ["error", 4],
+    "no-console": "off",
+    "import/no-dynamic-require": "off",
+    "global-require": "off",
+    "import/prefer-default-export": "off"
+
   }
 }

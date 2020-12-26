@@ -42,7 +42,7 @@ module.exports = {
       title: 'LEGO',
       filename: 'index.html',
       template: './public/index.ejs',
-      favicon: resolve( __dirname, '../public/lego.svg')
+      favicon: resolve( __dirname, '../public/lego.png')
     }),
     new MiniCssExtractPlugin({
       filename: 'styles/[name].css',

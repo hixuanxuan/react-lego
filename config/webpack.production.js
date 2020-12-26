@@ -33,6 +33,10 @@ module.exports = {
         canPrint: true,
       }),
     ],
+    runtimeChunk: 'single',
+    splitChunks: {
+      chunks: 'all'
+    }
   },
   plugins: [
     new CleanWebpackPlugin(),
