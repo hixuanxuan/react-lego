@@ -33,7 +33,33 @@ const webpackBaseConfig = {
                 ],
             },
             {
+                test: /\.module\.less$/,
+                use: [
+                    mode === 'development' ? require.resolve('style-loader') : MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: true,
+                        },
+                    },
+                    'postcss-loader',
+                    'less-loader',
+                    {
+                        loader: 'sass-resources-loader',
+                        options: {
+                            // common.less 自己的公共变量路径
+                            resources: [
+                                resolve(
+                                    './src/static/css/vars.less',
+                                ),
+                            ],
+                        },
+                    },
+                ],
+            },
+            {
                 test: /\.less$/,
+                exclude: [/\.module\.less$/, /node_modules/],
                 use: [
                     MiniCssExtractPlugin.loader,
                     // {
@@ -77,7 +103,7 @@ const webpackBaseConfig = {
         }),
         new WebpackBar({
             name: 'LEGO',
-            color: 'hotpink',
+            color: 'blue',
             profile: true,
         }),
     ],
