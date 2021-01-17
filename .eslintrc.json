@@ -1,29 +1,26 @@
 {
-  "root": true,
-  "extends": [
-    "airbnb-typescript"
-  ],
-  "env": {
-    "node": true,
-    "es6": true,
-    "browser": true
-  },
-  "parserOptions": {
-    "project": "./tsconfig.json",
-    "ecmaVersion": 2015,
-    "sourceType": "module"
-  },
-  "rules": {
-    "no-unused-vars": "error",
-    "no-undef": "warn",
-    "arrow-parens": "off",
-    "indent": ["error", 4],
-    "react/jsx-indent": ["error", 4],
-    "@typescript-eslint/indent" : ["error", 4],
-    "no-console": "off",
-    "import/no-dynamic-require": "off",
-    "global-require": "off",
-    "import/prefer-default-export": "off"
-
-  }
+    "root": true,
+    "extends": ["airbnb-typescript"],
+    "env": {
+        "node": true,
+        "es6": true,
+        "browser": true
+    },
+    "parserOptions": {
+        "project": "./tsconfig.json",
+        "ecmaVersion": 2015,
+        "sourceType": "module"
+    },
+    "rules": {
+        "no-unused-vars": "warn",
+        "no-undef": "warn",
+        "arrow-parens": "off",
+        "indent": ["error", 4],
+        "react/jsx-indent": ["error", 4],
+        "@typescript-eslint/indent": ["error", 4],
+        "no-console": "off",
+        "import/no-dynamic-require": "off",
+        "global-require": "off",
+        "import/prefer-default-export": "off"
+    }
 }
