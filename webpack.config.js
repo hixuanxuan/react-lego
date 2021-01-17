@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const {
     join,
     resolve
@@ -134,6 +135,12 @@ const webpackBaseConfig = {
             name: 'LEGO',
             color: 'blue',
             profile: true,
+        }),
+        new webpack.DefinePlugin({
+            'process.env': {
+                mod: JSON.stringify(process.env.mod),
+                id: JSON.stringify(process.env.id)
+            }
         })
     ],
     resolve: {
@@ -144,7 +151,8 @@ const webpackBaseConfig = {
             '@imgs': resolve('./src/static/imgs'),
             '@css': resolve('./src/static/css'),
             '@utils': resolve('./src/utils'),
-            '@layout': resolve('./src/layout')
+            '@layout': resolve('./src/layout'),
+            '@components': resolve('./src/conponents'),
         },
     },
 };

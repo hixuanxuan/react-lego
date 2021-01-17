@@ -24,6 +24,6 @@
     },
     "allowSyntheticDefaultImports": true
   },
-  "include": ["src", "tests"],
+  "include": ["src", "tests", "typings"],
   "exclude": ["node_modules", "webpack.config.js", "gulpfile.js"]
 }

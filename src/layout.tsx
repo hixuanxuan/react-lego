@@ -3,6 +3,7 @@ import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import { LazyWrapper } from './components';
 import { Routers, RouterItem } from './router';
 
+// const { mod, id } = process.env;
 const renderDefaultLayout = (config: RouterItem) => {
     const {
         showLayout,
