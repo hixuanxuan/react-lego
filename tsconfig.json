@@ -12,10 +12,19 @@
     "emitDecoratorMetadata": true,
     "noImplicitThis": true,
     "noImplicitAny": true,
-    "typeRoots": ["typings", "./node_modules/@types"],
+    "typeRoots": ["typings", "dnode_modules/@types"],
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"],
+      "@imgs/*": ["src/static/imgs/*"],
+      "@components": ["src/components"],
+      "@components/*": ["src/components/*"],
+      "@css/*": ["src/static/css/*"],
+      "@utils": ["src/utils"],
+      "@utils/*": ["src/utils/*"],
+      "@layout/*": ["src/layout/*"],
+      "@hooks": ["src/hooks"],
+      "@hooks/*": ["src/hooks/*"]
     }
   },
   "include": ["src", "tests", "typings"],

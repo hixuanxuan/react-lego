@@ -18,7 +18,7 @@ export const Routers: RouterItem[] = [
     },
     {
         path: '/',
-        Component: Pages.Demo2,
+        Component: Pages.EditContent,
         showLayout: true,
     },
 ];

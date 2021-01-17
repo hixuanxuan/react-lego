@@ -11,6 +11,7 @@ import '@css/base.less';
 
 const paths: string[] = [
     'layout/header/',
+    'pages/editContent/',
 ];
 
 const store = createStore(

@@ -1,21 +1,22 @@
 import React, { createContext } from 'react';
 import { useSelector } from 'react-redux';
 import { Resizable } from 're-resizable';
+// import { usePage } from '@hooks';
 import css from './index.module.less';
 
-console.log(css);
 export interface Props {
     children: React.ReactNode;
-    page: symbol;
+    id: string;
 }
 // const store = {};
 const EditElementContext = createContext({});
-export default function editElementWrapper({ children, page }: Props) {
+export default function editElementWrapper({ children }: Props) {
+    // const page = usePage();
     const data = useSelector(
-        (store: any) => store[page],
+        (store: any) => store,
     );
+    console.log('data, data', data);
     // const
-
     return (
         <EditElementContext.Provider value={data}>
             <Resizable
@@ -24,6 +25,7 @@ export default function editElementWrapper({ children, page }: Props) {
                     width: 200,
                     height: 200,
                 }}
+                onResizeStop={(...args) => console.log(args)}
             >
                 001
                 {children}

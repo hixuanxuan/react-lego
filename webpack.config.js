@@ -120,10 +120,11 @@ const webpackBaseConfig = {
         alias: {
             '@': resolve('./src'),
             '@imgs': resolve('./src/static/imgs'),
+            '@components': resolve('./src/components'),
             '@css': resolve('./src/static/css'),
             '@utils': resolve('./src/utils'),
             '@layout': resolve('./src/layout'),
-            '@components': resolve('./src/conponents'),
+            '@hooks': resolve('./src/hooks'),
         },
     },
 };
