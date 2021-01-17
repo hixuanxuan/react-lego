@@ -4,6 +4,7 @@ import { Header } from './layout/index';
 import { LazyWrapper } from './components';
 import { Routers, RouterItem } from './router';
 
+// const { mod, id } = process.env;
 const renderDefaultLayout = (config: RouterItem) => {
     const {
         showLayout,
@@ -28,26 +29,19 @@ const renderDefaultLayout = (config: RouterItem) => {
 };
 
 const App: React.FC<{}> = (props) => {
-    useEffect(
-        () => {
-            console.log('init success', props);
-        },
-        [],
-    );
+    useEffect(() => {
+        console.log('init success', props);
+    }, []);
     return (
         <Switch>
-            {
-                Routers.map(
-                    (item) => (
-                        <Route
-                            key={item.path}
-                            exact={item.exact ? item.exact : true} // 模糊匹配
-                            path={item.path}
-                            render={() => renderDefaultLayout(item)}
-                        />
-                    ),
-                )
-            }
+            {Routers.map((item) => (
+                <Route
+                    key={item.path}
+                    exact={item.exact ? item.exact : true} // 模糊匹配
+                    path={item.path}
+                    render={() => renderDefaultLayout(item)}
+                />
+            ))}
             <Route render={() => 'no match'} />
         </Switch>
     );

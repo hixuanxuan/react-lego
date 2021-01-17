@@ -1,4 +1,5 @@
-const { join, resolve } = require('path');
+const webpack = require('webpack');
+const { resolve } = require('path');
 const { merge } = require('webpack-merge');
 const argv = require('minimist')(process.argv.slice(2));
 const WebpackBuildNotifierPlugin = require('webpack-build-notifier');
@@ -106,6 +107,12 @@ const webpackBaseConfig = {
             color: 'blue',
             profile: true,
         }),
+        new webpack.DefinePlugin({
+            'process.env': {
+                mod: JSON.stringify(process.env.mod),
+                id: JSON.stringify(process.env.id)
+            }
+        })
     ],
     resolve: {
         modules: ['node_modules', resolve('src')],
@@ -115,8 +122,10 @@ const webpackBaseConfig = {
             '@imgs': resolve('./src/static/imgs'),
             '@css': resolve('./src/static/css'),
             '@utils': resolve('./src/utils'),
-            '@layout': resolve('./src/layout')
+            '@layout': resolve('./src/layout'),
+            '@components': resolve('./src/conponents'),
         },
     },
 };
 module.exports = merge(webpackBaseConfig, mergeConfig);
+
