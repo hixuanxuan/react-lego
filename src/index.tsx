@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
@@ -9,13 +9,11 @@ import App from './pages/App';
 import './index.less';
 import '@css/base.less';
 
-const paths: string[] = [
-    'layout/header/',
-];
-console.log(({
+const paths: string[] = ['layout/header/'];
+console.log({
     global: undoable(rootReducer),
     ...getReducers(paths),
-}));
+});
 // console.log(111);
 const store = createStore(
     combineReducers({
