@@ -13,7 +13,11 @@ const editRouter = (
 );
 // const { data } = reqRouters();
 
-const previewRoter = () => {
+const previewRoter = () => {};
+const App: React.FC<{}> = (props) => {
+    const [data, setData] = useState<number>(1);
+    const aaa = useSelector((state) => state);
+    console.log('2', aaa, props);
     return (
         <BrowserRouter basename={`/preview/${id}`}>
             <Route />

@@ -15,8 +15,14 @@
     "typeRoots": ["typings", "./node_modules/@types"],
     "baseUrl": "./",
     "paths": {
-      "@/*": ["src/*"],
-    }
+      "@": ["src"],
+      "@imgs": ["src/static/imgs"],
+      "@imgs/*": ["src/static/imgs/*"],
+      "@css": ["src/static/css"],
+      "@utils": ["src/utils"],
+      "@layout": ["src/layout"]
+    },
+    "allowSyntheticDefaultImports": true
   },
   "include": ["src", "tests"],
   "exclude": ["node_modules", "webpack.config.js", "gulpfile.js"]
