@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
@@ -9,7 +9,8 @@ import Layout from './layout';
 import './index.less';
 import '@css/base.less';
 
-const paths: string[] = ['layout/header/'];
+console.log(Layout);
+const paths: string[] = ['layout/header/', 'pages/editContent/'];
 
 const store = createStore(
     combineReducers({
@@ -21,7 +22,7 @@ const store = createStore(
 
 ReactDOM.render(
     <Provider store={store}>
-        <App />
+        <Layout />
     </Provider>,
     document.getElementById('root'),
 );

@@ -8,17 +8,17 @@ import { lazy } from 'react';
 const lazyLoader = (mod: any) => {
     // if (!name) {
     // }
+    console.log(mod);
+
     const content = mod.default || mod;
 
     // 判断是否是promise对象
     if (
-        content
-        && (typeof content === 'object' || typeof content === 'function')
-        && typeof content.then === 'function'
+        content &&
+        (typeof content === 'object' || typeof content === 'function') &&
+        typeof content.then === 'function'
     ) {
-        return lazy(
-            () => content,
-        );
+        return lazy(() => content);
     }
 
     return content;

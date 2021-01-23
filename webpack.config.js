@@ -107,22 +107,14 @@ const webpackBaseConfig = {
                 ],
             },
             {
-                test: /\.(svg|png|jpg|jpeg|gif|eot|woff|woff2|ttf|otf)$/,
-                type: 'asset',
+                test: /\.svg$/,
+                use: ['@svgr/webpack'],
             },
             {
-                test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-                use: [
-                    'babel-loader',
-                    {
-                        loader: '@svgr/webpack',
-                        options: {
-                            babel: false,
-                            icon: true,
-                        },
-                    },
-                ],
+                test: /\.(png|jpg|jpeg|gif|eot|woff|woff2|ttf|otf)$/,
+                type: 'asset',
             },
+
         ],
     },
     plugins: [
@@ -149,10 +141,11 @@ const webpackBaseConfig = {
         alias: {
             '@': resolve('./src'),
             '@imgs': resolve('./src/static/imgs'),
+            '@components': resolve('./src/components'),
             '@css': resolve('./src/static/css'),
             '@utils': resolve('./src/utils'),
             '@layout': resolve('./src/layout'),
-            '@components': resolve('./src/conponents'),
+            '@hooks': resolve('./src/hooks'),
         },
     },
 };

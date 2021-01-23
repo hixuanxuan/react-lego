@@ -4,13 +4,13 @@ import Header from './header';
 // export { default as Aside } from './aside';
 
 interface Layout {
-    children: React.ReactElement;
+    children: React.ReactNode;
 }
 
 export default function Layout({ children }: Layout) {
     return (
         <Fragment>
-            <Header></Header>
+            <Header />
             {children}
         </Fragment>
     );

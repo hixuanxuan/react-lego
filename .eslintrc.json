@@ -15,7 +15,7 @@
         "no-unused-vars": "warn",
         "no-undef": "warn",
         "arrow-parens": "off",
-        "indent": ["error", 4],
+        "indent": "off",
         "react/jsx-indent": ["error", 4],
         "@typescript-eslint/indent": "off",
         "no-console": "off",
