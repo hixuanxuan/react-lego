@@ -17,5 +17,5 @@ export default function reducer(state = defaultState, action: any) {
         }
         default:
             return state;
-        }
+    }
 }

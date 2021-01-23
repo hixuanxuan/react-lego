@@ -5,14 +5,12 @@ import { Provider } from 'react-redux';
 import undoable from 'redux-undo';
 import { getReducers } from '@utils';
 import rootReducer from './globalReducer';
-import App from './layout';
+import Layout from './layout';
 import './index.less';
 import '@css/base.less';
 
-const paths: string[] = [
-    'layout/header/',
-    'pages/editContent/',
-];
+console.log(Layout);
+const paths: string[] = ['layout/header/', 'pages/editContent/'];
 
 const store = createStore(
     combineReducers({
@@ -24,7 +22,7 @@ const store = createStore(
 
 ReactDOM.render(
     <Provider store={store}>
-        <App />
+        <Layout />
     </Provider>,
     document.getElementById('root'),
 );

@@ -1,38 +1,36 @@
-import React, { createContext } from 'react';
-import { useSelector } from 'react-redux';
+import React from 'react';
 import { Resizable } from 're-resizable';
-// import { usePage } from '@hooks';
+import { usePage } from '@hooks';
+import { useInitElement } from './hooks';
+import useEditState, { useEditStateProvider } from './hooks/useEditState';
 import css from './index.module.less';
 
-export interface Props {
+interface Props {
     children: React.ReactNode;
     id: string;
 }
 // const store = {};
-const EditElementContext = createContext({});
-export default function editElementWrapper({ children }: Props) {
-    // const page = usePage();
-    const data = useSelector(
-        (store: any) => store,
-    );
-    console.log('data, data', data);
-    // const
+export default function EditElementWrapper({ children, id }: Props) {
+    const page = usePage();
+    const conf = { page, id };
+    useInitElement(conf);
+    const [Provider, useEditStateDefault] = useEditStateProvider(conf);
+    const [{ width, height }, updater] = useEditStateDefault();
     return (
-        <EditElementContext.Provider value={data}>
+        <Provider value={useEditStateDefault}>
             <Resizable
                 className={css.resizable}
-                defaultSize={{
-                    width: 200,
-                    height: 200,
+                size={{ width, height }}
+                onResizeStop={(e, direction, ref, d) => {
+                    updater({
+                        width: width + d.width,
+                        height: height + d.height,
+                    });
                 }}
-                onResizeStop={(...args) => console.log(args)}
             >
-                001
                 {children}
             </Resizable>
-            <div className={css.container}>
-                123
-            </div>
-        </EditElementContext.Provider>
+        </Provider>
     );
 }
+export { useEditState };
