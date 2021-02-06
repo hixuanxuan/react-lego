@@ -4,6 +4,7 @@ import { usePageProvider } from '@hooks/usePage';
 import EditElementWrapper, {
     useEditState,
 } from '@components/editElementWrapper';
+import PageCollapse from '@widgets/pageCollapse';
 import css from './index.module.less';
 // const { id, mod } = process.env;
 // function APP() {
@@ -31,15 +32,10 @@ const App: React.FC<{}> = (props) => {
     return (
         <PageProvider>
             <div className="aaa">{data}</div>
-            <EditElementWrapper id={'demo'}>
+            {/* <EditElementWrapper id={'demo'}>
                 <Demo />
-            </EditElementWrapper>
-            <button
-                type="button"
-                onClick={() => setData((preCount) => preCount + 1)}
-            >
-                click
-            </button>
+            </EditElementWrapper> */}
+            <PageCollapse></PageCollapse>
         </PageProvider>
     );
 };

@@ -9,7 +9,22 @@ interface Props {
     children: React.ReactNode;
     id: string;
 }
+interface ResizeableWrapperProps {
+    children: any;
+    open: boolean;
+    [props: string]: Resizable;
+}
 // const store = {};
+const ResizeableWrapper = ({
+    children,
+    open,
+    ...props
+}: ResizeableWrapperProps) => {
+    if (open) {
+        return <Resizable {...props}>{children}</Resizable>;
+    }
+    return children;
+};
 export default function EditElementWrapper({ children, id }: Props) {
     const page = usePage();
     const conf = { page, id };
@@ -18,10 +33,11 @@ export default function EditElementWrapper({ children, id }: Props) {
     const [{ width, height }, updater] = useEditStateDefault();
     return (
         <Provider value={useEditStateDefault}>
-            <Resizable
+            <ResizeableWrapper
+                open={true}
                 className={css.resizable}
                 size={{ width, height }}
-                onResizeStop={(e, direction, ref, d) => {
+                onResizeStop={(_, direction, ref, d) => {
                     updater({
                         width: width + d.width,
                         height: height + d.height,
@@ -29,7 +45,7 @@ export default function EditElementWrapper({ children, id }: Props) {
                 }}
             >
                 {children}
-            </Resizable>
+            </ResizeableWrapper>
         </Provider>
     );
 }

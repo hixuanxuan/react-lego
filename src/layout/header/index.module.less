@@ -1,10 +1,9 @@
-.wrapper {
-    width: 1376px;
+.wrappers {
     height: 64px;
     background: #FFFFFF;
-    padding: 16px 0px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 
     .header-logo {
         width: 32px;
@@ -16,5 +15,27 @@
         height: 24px;
     }
 
-    .left-fix {}
+    .left-fix {
+        margin-left: 16px;
+    }
+
+    .right-fix {
+        display: flex;
+        height: 40px;
+
+        .notice {
+            width: 40px;
+            height: 40px;
+            background: rgba(19, 23, 70, 0.08);
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .avatar {
+            margin: 0px 19px;
+        }
+    }
 }

@@ -24,4 +24,10 @@ export const Routers: RouterItem[] = [
         Component: Pages.EditContent,
         showLayout: true,
     },
+    // {
+    //     name: 'edit',
+    //     path: '/',
+    //     Component: Pages.EditContent,
+    //     showLayout: true,
+    // }
 ];

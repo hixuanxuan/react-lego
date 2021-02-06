@@ -26,7 +26,9 @@
             "@layout": ["src/layout"],
             "@layout/*": ["src/layout/*"],
             "@hooks": ["src/hooks"],
-            "@hooks/*": ["src/hooks/*"]
+            "@hooks/*": ["src/hooks/*"],
+            "@widgets": ["src/widgets"],
+            "@widgets/*": ["src/widgets/*"]
         }
     },
     "include": ["src", "tests", "typings"],

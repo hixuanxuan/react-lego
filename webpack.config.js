@@ -146,6 +146,7 @@ const webpackBaseConfig = {
             '@utils': resolve('./src/utils'),
             '@layout': resolve('./src/layout'),
             '@hooks': resolve('./src/hooks'),
+            '@widgets': resolve('./src/widgets'),
         },
     },
 };

@@ -9,7 +9,7 @@ export function useEditStateProvider({
     id,
     page,
 }: Conf): [any, typeUseEditState] {
-    const data = useSelfReducer((state) => state.get(page).get(id));
+    const data = useSelfReducer((state) => state.getIn([page, id]));
     const dispatch = useDispatch();
     const updater = useCallback(
         (params) => {
