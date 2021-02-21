@@ -1,5 +1,6 @@
 import React from 'react';
 import { Resizable } from 're-resizable';
+import { useDrag, DragSourceMonitor } from 'react-dnd';
 import { usePage } from '@hooks';
 import { useInitElement } from './hooks';
 import useEditState, { useEditStateProvider } from './hooks/useEditState';
@@ -15,16 +16,15 @@ interface ResizeableWrapperProps {
     [props: string]: Resizable;
 }
 // const store = {};
-const ResizeableWrapper = ({
-    children,
-    open,
-    ...props
-}: ResizeableWrapperProps) => {
-    if (open) {
-        return <Resizable {...props}>{children}</Resizable>;
-    }
-    return children;
+const funcs = {
+    begin: (mintor: DragSourceMonitor) => console.log('begin', mintor),
+    end: (item: any, mintor: DragSourceMonitor) =>
+        console.log('end', item, mintor),
 };
+const box = {
+    type: 'card',
+};
+
 export default function EditElementWrapper({ children, id }: Props) {
     const page = usePage();
     const conf = { page, id };
@@ -33,11 +33,10 @@ export default function EditElementWrapper({ children, id }: Props) {
     const [{ width, height }, updater] = useEditStateDefault();
     return (
         <Provider value={useEditStateDefault}>
-            <ResizeableWrapper
-                open={true}
+            <Resizable
                 className={css.resizable}
                 size={{ width, height }}
-                onResizeStop={(_, direction, ref, d) => {
+                onResizeStop={(e, direction, ref, d) => {
                     updater({
                         width: width + d.width,
                         height: height + d.height,
@@ -45,7 +44,7 @@ export default function EditElementWrapper({ children, id }: Props) {
                 }}
             >
                 {children}
-            </ResizeableWrapper>
+            </Resizable>
         </Provider>
     );
 }

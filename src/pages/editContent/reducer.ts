@@ -1,26 +1,31 @@
-import { fromJS } from 'immutable';
-
-const defaultState: any = fromJS({});
-export default function reducer(state = defaultState, action: any) {
-    const { type } = action;
-    switch (type) {
-        case 'create_page_data': {
-            return state.set(action.key, action.data || fromJS({}));
+import { produce } from 'immer';
+const defaultState: any = {};
+export default function reducer(prev = defaultState, action: any) {
+    return produce(prev, (state: any) => {
+        const { type } = action;
+        switch (type) {
+            case 'create_page_data': {
+                const { key, data } = action;
+                state[key] = data;
+                break;
+            }
+            case 'init_section': {
+                const { page, id, data } = action;
+                state[page][id] = data;
+                break;
+            }
+            case 'update_section': {
+                const { page, id, data } = action;
+                state[page][id] = { ...prev[page][id], ...data };
+                break;
+            }
+            case 'update_list': {
+                const { page, data } = action;
+                state[page].list = data;
+                break;
+            }
+            default:
+                return state;
         }
-        case 'init_section': {
-            const { page, id, data } = action;
-            return state.set(
-                page,
-                fromJS({
-                    [id]: data,
-                }),
-            );
-        }
-        case 'update_section': {
-            const { page, id, data } = action;
-            return state.mergeIn([page, id], fromJS(data));
-        }
-        default:
-            return state;
-    }
+    });
 }

@@ -9,7 +9,7 @@ export function useEditStateProvider({
     id,
     page,
 }: Conf): [any, typeUseEditState] {
-    const data = useSelfReducer((state) => state.getIn([page, id]));
+    const data = useSelfReducer((state) => state[page][id]);
     const dispatch = useDispatch();
     const updater = useCallback(
         (params) => {
@@ -22,10 +22,9 @@ export function useEditStateProvider({
         },
         [id, page],
     );
-    const memoData: any = useMemo(() => data.toJS(), [data]);
     const useEditStateFn: typeUseEditState = useCallback(
-        () => [memoData, updater],
-        [memoData, updater],
+        () => [data, updater],
+        [data, updater],
     );
     return [Context.Provider, useEditStateFn];
 }

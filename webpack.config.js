@@ -14,6 +14,74 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const mode = argv.mode || 'development';
 const mergeConfig = require(`./config/webpack.${mode}.js`);
 
+// 定义一些正则
+const cssRegex = /\.css$/;
+const cssModuleRegex = /\.module\.css$/;
+const lessRegex = /\.less$/;
+const lessModuleRegex = /\.module\.less$/;
+
+const isEnvDevelopment = mode === 'development';
+const isEnvProduction = mode === 'production';
+const cssModuleName = isEnvDevelopment ? '[path][name]__[local]--[hash:base64:5]' : '[local]--[hash:base64:5]';
+const shouldUseSourceMap = isEnvDevelopment
+// 分开写不太方便 放到一起吧
+const getStyleLoaders = (cssOptions, ...preProcessors) => {
+    const loaders = [
+        isEnvProduction && MiniCssExtractPlugin.loader,
+        isEnvDevelopment && require.resolve('style-loader'),
+        {
+            loader: 'thread-loader',
+            options: {
+                workers: 3,
+            },
+        },
+        {
+            loader: require.resolve('css-loader'),
+            options: cssOptions,
+        },
+        {
+            loader: require.resolve('postcss-loader'),
+            options: {
+                postcssOptions: {
+                    ident: 'postcss',
+                    plugins: () => [
+                        require('postcss-flexbugs-fixes'),
+                        require('postcss-preset-env')({
+                            stage: 3,
+                            features: {
+                                'nesting-rules': true,
+                            },
+                            autoprefixer: {
+                                flexbox: 'no-2009',
+                            },
+                            browsers: [
+                                '>1%',
+                                'last 4 versions',
+                                'Firefox ESR',
+                                'not ie < 11'
+                            ]
+                        }),
+                        postcssNormalize()
+                    ]
+                },
+                sourceMap: shouldUseSourceMap
+            }
+        },
+    ].filter(Boolean);
+    if (preProcessors.length) {
+        preProcessors.forEach(preProcessor => {
+            if (typeof (preProcessor) !== 'string') {
+                loaders.push(preProcessor);
+            } else {
+                loaders.push({
+                    loader: require.resolve(preProcessor),
+                });
+            }
+        });
+    }
+    return loaders;
+};
+
 const webpackBaseConfig = {
     entry: {
         app: resolve('./src/index.tsx'),
@@ -37,74 +105,80 @@ const webpackBaseConfig = {
                 ],
             },
             {
-                test: /\.module\.less$/,
-                use: [
-                    mode === 'development' ? require.resolve('style-loader') : MiniCssExtractPlugin.loader,
-                    // {
-                    //     loader: 'typings-for-css-modules-loader',
-                    //     options: {
-                    //         modules: true,
-                    //         namedExport: true,
-                    //         camelCase: true,
-                    //         minimize: true,
-                    //         localIdentName: "[local]_[hash:base64:5]"
-                    //     }
-                    // },
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            importLoaders: 1,
-                            modules: {
-                                localIdentName: mode === 'development' ? '[path][name]__[local]' : '[hash:base64]'
-                            },
-                        },
-                    },
-                    'postcss-loader',
-                    'less-loader',
-                    {
-                        loader: 'sass-resources-loader',
-                        options: {
-                            // common.less 自己的公共变量路径
-                            resources: [
-                                resolve(
-                                    './src/static/css/vars.less',
-                                ),
-                            ],
-                        },
-                    },
-                ],
+                test: cssRegex,
+                exclude: cssModuleRegex,
+                use: getStyleLoaders({
+                    importLoaders: 1,
+                    sourceMap: shouldUseSourceMap,
+                }),
+                sideEffects: true,
             },
             {
-                test: /\.less$/,
-                exclude: [/\.module\.less$/, /node_modules/],
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    // {
-                    //   loader: 'thread-loader',
-                    //   options: {
-                    //     workers: 3,
-                    //   }
-                    // },
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            importLoaders: 1,
-                        },
+                test: cssModuleRegex,
+                use: getStyleLoaders({
+                    importLoaders: 1,
+                    sourceMap: shouldUseSourceMap,
+                    modules: {
+                        localIdentName: cssModuleName
                     },
-                    'postcss-loader',
-                    'less-loader',
-                    {
+                }),
+            },
+            {
+                test: lessRegex,
+                exclude: [lessModuleRegex, /node_modules/],
+                use: getStyleLoaders({
+                        importLoaders: 2,
+                        sourceMap: shouldUseSourceMap,
+                    },
+                    'less-loader', {
                         loader: 'sass-resources-loader',
                         options: {
-                            // common.less 自己的公共变量路径
                             resources: [
                                 resolve(
                                     './src/static/css/vars.less',
                                 ),
                             ],
                         },
+                    }
+                ),
+                sideEffects: true,
+            },
+            {
+                test: lessRegex,
+                include: /node_modules\/antd/,
+                use: getStyleLoaders({
+                    importLoaders: 2,
+                    sourceMap: shouldUseSourceMap,
+                }, {
+                    loader: 'less-loader',
+                    options: {
+                        lessOptions: {
+                            modifyVars: require('./modifyVars'),
+                            javascriptEnabled: true,
+                        }
+                    }
+                })
+            },
+            {
+                test: lessModuleRegex,
+                use: getStyleLoaders({
+                        importLoaders: 2,
+                        sourceMap: shouldUseSourceMap,
+                        modules: {
+                            localIdentName: cssModuleName
+                        },
                     },
-                ],
+                    'less-loader', {
+                        loader: 'sass-resources-loader',
+                        options: {
+                            resources: [
+                                resolve(
+                                    './src/static/css/vars.less',
+                                ),
+                            ],
+                        },
+                    }
+                ),
             },
             {
                 test: /\.svg$/,

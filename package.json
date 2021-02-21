@@ -16,7 +16,9 @@
   "dependencies": {
     "@ant-design/icons": "^4.4.0",
     "@types/react-redux": "^7.1.12",
+    "@types/uuid": "^8.3.0",
     "antd": "^4.9.4",
+    "immer": "^8.0.1",
     "classnames": "^2.2.6",
     "immutable": "^4.0.0-rc.12",
     "re-resizable": "^6.9.0",
@@ -31,7 +33,8 @@
     "redux-undo": "^1.0.1",
     "sass-resources-loader": "^2.1.1",
     "style-loader": "^2.0.0",
-    "typescript": "^4.0.2"
+    "typescript": "^4.0.2",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
