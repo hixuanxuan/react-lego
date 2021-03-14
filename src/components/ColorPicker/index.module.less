@@ -1,0 +1,76 @@
+.color-picker {
+
+    &-container {
+        display: flex;
+        margin-top: 10px;
+    }
+
+    &-label {
+        font-size: 10px;
+        font-weight: 400;
+        color: #9d9fb2;
+        line-height: 14px;
+        margin-bottom: 4px;
+    }
+
+    &-input-wrap {
+        padding: 1px;
+        position: relative;
+
+        background: #eff0f4;
+        border-radius: 8px;
+        border: 1px solid #ffffff;
+        height: 28px;
+    }
+
+    &-box {
+        width: 32px;
+        height: 24px;
+        background: #254ec3;
+        border-radius: 6px;
+        border: 1px solid #ffffff;
+        display: block;
+        position: absolute;
+        left: 1px;
+        top: 1px;
+        cursor: pointer;
+    }
+
+    &-input {
+        height: 100%;
+        border: none;
+        background-color: transparent;
+        width: 100%;
+        padding: 0 4px;
+
+        font-size: 12px;
+
+        font-weight: 400;
+        color: fade(#595c7d, 70);
+        line-height: 17px;
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    &-value {
+        margin-right: 4px;
+        width: 70%;
+
+        .color-picker-input {
+            padding-left: 40px;
+        }
+    }
+
+    &-opacity {
+        width: 30%;
+    }
+}
+
+
+.popover {
+    :global(.ant-popover-inner-content) {
+        padding: 0;
+    }
+}
