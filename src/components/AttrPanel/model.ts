@@ -1,5 +1,6 @@
 import InputBlock from '../InputBlock';
 import InputText from '../InputText';
+import LinkInput from '../LinkInput';
 import BannerController from '../BannerController';
 import Upload from '@components/upload';
 import Colorpicker from '@components/ColorPicker';
@@ -34,7 +35,7 @@ export default {
     },
     link: {
         group: 'link',
-        Component: InputText,
+        Component: LinkInput,
         valueKey: 'link',
         props: {
             id: 'link',

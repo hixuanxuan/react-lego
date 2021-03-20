@@ -10,12 +10,29 @@ import { v4 as uuid } from 'uuid';
 import Carousel from '@components/carousel';
 import { useEditState } from '../editElementWrapper';
 import FreeContainer from '@components/freeContainer';
+import { useParams } from 'react-router-dom';
 const id = 1;
 
 function ButtonDemo() {
-    const [{ text = '按钮', width, height }] = useEditState();
+    const [{ text = '按钮', width, height, link }] = useEditState();
+    const params = useParams();
+    const onClick = () => {
+        console.log('url', params);
+        if (!link?.type) {
+            return;
+        }
+        switch (link.type) {
+            case 1:
+                history.push(`/${params.pro}/${link.url}`);
+                break;
+            case 2:
+                window.open(link.url);
+            default:
+                break;
+        }
+    };
     return (
-        <Button style={{ width, height }} type="primary">
+        <Button style={{ width, height }} onClick={onClick} type="primary">
             {text}
         </Button>
     );
