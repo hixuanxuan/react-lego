@@ -35,10 +35,15 @@ console.log(useEditState);
 const flag = true;
 
 const App: React.FC<{}> = () => {
-    const [currentSection, selectSection] = useState({
+    const [currentSection, selectSection1] = useState({
         id: '',
         editFields: [],
     });
+    const selectSection = (...args) => {
+        console.log(...args);
+        selectSection1(...args);
+    };
+    console.log('currentSection', currentSection);
     const params = useParams<{ uid: string; pro: string }>();
     useSaveData(params.pro);
     const [visible, setVisible] = useState(false);

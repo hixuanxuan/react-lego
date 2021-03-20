@@ -3,12 +3,10 @@
  * overview: 用来存放下方 Card 列表的 List 组件
  */
 
-import React, {
- CSSProperties, useCallback, useState, useRef,
-} from 'react';
+import React, { CSSProperties, useCallback, useState, useRef } from 'react';
 import { useDrop } from 'react-dnd';
 import Card from '@components/Card';
-import { useHandleSelect } from '@components/List';
+import { useHandleSelect } from '@components/ContentPanel';
 import EditElementWrapper, {
     useEditState,
 } from '@components/editElementWrapper';
@@ -34,7 +32,10 @@ const getEditCom = (id: string, Com: React.FC<any>) => (
         <Com />
     </EditElementWrapper>
 );
-const FreeContainer: React.FC<IListProps> & {enable: any, defaultParams: any} = (props) => {
+const FreeContainer: React.FC<IListProps> & {
+    enable: any;
+    defaultParams: any;
+} = (props) => {
     const handleSelect = useHandleSelect();
     const ref = useRef<HTMLDivElement>(null);
     const [state, update] = useEditState();
@@ -46,7 +47,7 @@ const FreeContainer: React.FC<IListProps> & {enable: any, defaultParams: any} = 
         },
         drop: (item, monitor) => {
             console.log('dropppppp');
-            const hoverBoundingRect = ref.current!.getBoundingClientRect();
+            const hoverBoundingRect = ref.current?.getBoundingClientRect();
             // 确定鼠标位置
             console.log(item.state);
             if (item.update) {
@@ -70,32 +71,49 @@ const FreeContainer: React.FC<IListProps> & {enable: any, defaultParams: any} = 
     }, []);
     drop(ref);
     return (
-        <div className={css.content} style={{ ...style, background: isHover ? 'gray' : '' }} ref={ref}>
+        <div
+            className={css.content}
+            style={{ ...style, background: isHover ? 'gray' : '' }}
+            ref={ref}
+        >
             {state.children
                 ? state.children.map((item: any, index: number) => {
-                    const Com = Com;
-                    return <EditElementWrapper id={item.id} defaultProps={Com.defaultProps} needResize noBorder>
-                        <Card
-                          index={index}
-                          type={item.type}
-                          containerType={item.containerType}
-                          key={item.id}
-                          handleSelect={(e: any) => {
-                                e.preventDefault();
-                                setTimeout(() => {
-                                    handleSelect({
-                                        id: item.id,
-                                        editFields: Com.editFields,
-                                    });
-                                }, 10);
-                            }}
-                          moveCard={moveCard}
-                        >
-                            <Com />
-                        </Card>
-                    </EditElementWrapper>
-                  ))
-                })
+                      const Com = elementTypeMap[item.elementType];
+                      return (
+                          <EditElementWrapper
+                              id={item.id}
+                              defaultProps={Com.defaultProps}
+                              needResize
+                              noBorder
+                          >
+                              <Card
+                                  index={index}
+                                  type={item.type}
+                                  containerType={item.containerType}
+                                  key={item.id}
+                                  handleSelect={(e: any) => {
+                                      console.log(
+                                          e,
+                                          'handleSelect',
+                                          item,
+                                          Com.editFields,
+                                          handleSelect,
+                                      );
+
+                                      handleSelect({
+                                          id: item.id,
+                                          editFields: Com.editFields,
+                                      });
+                                      console.log('ddd');
+                                      e.stopPropagation();
+                                  }}
+                                  moveCard={moveCard}
+                              >
+                                  <Com />
+                              </Card>
+                          </EditElementWrapper>
+                      );
+                  })
                 : ''}
         </div>
     );

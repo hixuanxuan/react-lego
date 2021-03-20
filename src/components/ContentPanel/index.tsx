@@ -3,7 +3,12 @@
  * overview: 用来存放下方 Card 列表的 ContentPanel 组件
  */
 
-import React, { CSSProperties, useCallback, createContext } from 'react';
+import React, {
+    CSSProperties,
+    useCallback,
+    createContext,
+    useContext,
+} from 'react';
 import { useDrop } from 'react-dnd';
 import Card from '@components/Card';
 import { elementTypeMap } from '@components/Box';
@@ -90,6 +95,12 @@ const List: React.FC<IListProps> = ({
                                 index={index}
                                 key={item.id}
                                 handleSelect={() => {
+                                    console.log('----->', {
+                                        id: item.id,
+                                        editFields:
+                                            elementTypeMap[item.elementType]
+                                                .editFields,
+                                    });
                                     handleSelect({
                                         id: item.id,
                                         editFields:

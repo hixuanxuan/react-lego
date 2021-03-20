@@ -55,7 +55,7 @@ const ComsPanel = () => {
                     <Panel header="容器" key="1">
                         <div className={css.content}>
                             <Box
-                                elementType={'Demo'}
+                                elementType={'FreeContainer'}
                                 cardList={list}
                                 changeCardList={changeCardList}
                             >
@@ -66,6 +66,7 @@ const ComsPanel = () => {
                     <Panel header="常用组件" key="2">
                         <div className={css.content}>
                             <Box
+                                accept="item"
                                 elementType={'ButtonDemo'}
                                 cardList={list}
                                 changeCardList={changeCardList}
@@ -80,6 +81,7 @@ const ComsPanel = () => {
                                 <DragLogo Logo={SwiperSvg} text={'轮播图'} />
                             </Box>
                             <Box
+                                accept="item"
                                 elementType={'ImageCom'}
                                 cardList={list}
                                 changeCardList={changeCardList}

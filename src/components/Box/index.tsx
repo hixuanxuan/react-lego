@@ -4,25 +4,13 @@
  */
 
 import React from 'react';
+import { Button } from 'antd';
 import { DragSourceMonitor, useDrag } from 'react-dnd';
 import { v4 as uuid } from 'uuid';
 import Carousel from '@components/carousel';
 import { useEditState } from '../editElementWrapper';
-
+import FreeContainer from '@components/freeContainer';
 const id = 1;
-
-function Demo() {
-    const [{ background = 'black' }, updater] = useEditState();
-    return (
-        <div className={css.test} style={{ background }}>
-            颜色可编辑：
-            <input
-                type="text"
-                onBlur={(e) => updater({ background: e.target.value })}
-            />
-        </div>
-    );
-}
 
 function ButtonDemo() {
     const [{ text = '按钮', width, height }] = useEditState();
@@ -59,7 +47,7 @@ ImageCom.editFields = ['width', 'height', 'text', 'color', 'upload'];
 export const elementTypeMap = {
     ImageCom,
     ButtonDemo,
-    Demo,
+    FreeContainer,
     Carousel,
 };
 const Box: React.FC<any> = ({
