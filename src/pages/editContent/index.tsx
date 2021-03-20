@@ -14,17 +14,19 @@ import Box from '@components/Box';
 import PageCollapse from '@/widgets/pageCollapse';
 import AttrPanel from '@components/AttrPanel';
 import ContentPanel from '@/components/ContentPanel';
-import { Modal, Button, Spin, Popover } from 'antd';
+import {
+ Modal, Button, Spin, Popover,
+} from 'antd';
 import getSevereData from '@/hooks/useGetServerData';
 import useSaveData from '@/hooks/useSaveData';
 import wrapPromise from '@/utils/wrapPromise';
 import { useHistory, useParams } from 'react-router';
 import { v4 as uuid } from 'uuid';
+import PreviewSvg from '@imgs/svg/preview.svg';
+import ExportSvg from '@imgs/svg/export.svg';
 import css from './index.module.less';
 import ComsPanel from './comsPanel';
 import Preview from '../preview';
-import PreviewSvg from '@imgs/svg/preview.svg';
-import ExportSvg from '@imgs/svg/export.svg';
 
 // const { id, mod } = process.env;
 // function APP() {
@@ -73,9 +75,9 @@ const App: React.FC<{}> = () => {
                 <ComsPanel />
             </div>
             <ContentPanel
-                cardList={list}
-                changeCardList={changeCardList}
-                handleSelect={selectSection}
+              cardList={list}
+              changeCardList={changeCardList}
+              handleSelect={selectSection}
             />
             <AttrPanel {...currentSection} />
             {/* <DragDemo>
@@ -89,9 +91,9 @@ const App: React.FC<{}> = () => {
                 </Popover>
                 <Popover content={<>导出项目</>} title={null}>
                     <a
-                        className={css.item}
-                        href={`http://49.234.70.125:8001/client/${params.pro}/${params.uid}`}
-                        target="_blank"
+                      className={css.item}
+                      href={`http://49.234.70.125:8001/client/${params.pro}/${params.uid}`}
+                      target="_blank"
                     >
                         <ExportSvg />
                     </a>
@@ -100,11 +102,11 @@ const App: React.FC<{}> = () => {
             </div>
 
             <Modal
-                className={css.modal}
-                visible={visible}
-                footer={null}
-                maskClosable
-                onCancel={() => setVisible(false)}
+              className={css.modal}
+              visible={visible}
+              footer={null}
+              maskClosable
+              onCancel={() => setVisible(false)}
             >
                 <Preview cardList={list} />
             </Modal>

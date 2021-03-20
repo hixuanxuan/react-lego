@@ -41,7 +41,6 @@ export default function EditElementWrapper({
     const [resizing, onResize] = useState(false);
     const page = usePage();
     const conf = { page, id };
-    console.log(defaultProps);
     useInitElement(conf, defaultProps);
     const [Provider, useEditStateDefault] = useEditStateProvider(conf);
     const [{ width, height, ...style }, updater] = useEditStateDefault();

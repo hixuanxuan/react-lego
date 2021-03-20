@@ -8,9 +8,23 @@ import { Button } from 'antd';
 import { DragSourceMonitor, useDrag } from 'react-dnd';
 import { v4 as uuid } from 'uuid';
 import Carousel from '@components/carousel';
-import { useEditState } from '../editElementWrapper';
 import FreeContainer from '@components/freeContainer';
+import { useEditState } from '../editElementWrapper';
+
 const id = 1;
+
+// function Demo() {
+//     const [{ background = 'black' }, updater] = useEditState();
+//     return (
+//         <div className={css.test} style={{ background }}>
+//             颜色可编辑：
+//             <input
+//               type="text"
+//               onBlur={(e) => updater({ background: e.target.value })}
+//             />
+//         </div>
+//     );
+// }
 
 function ButtonDemo() {
     const [{ text = '按钮', width, height }] = useEditState();
@@ -27,11 +41,13 @@ ButtonDemo.defaultProps = {
 };
 
 const ImageCom = () => {
-    const [{ src, text, width, height, color }] = useEditState();
+    const [{
+ src, text, width, height, color,
+}] = useEditState();
     return (
         <div style={{ width, height }}>
             <img style={{ width: '100%' }} src={src} />
-            <p style={{ color: color }}>{text}</p>
+            <p style={{ color }}>{text}</p>
         </div>
     );
 };
