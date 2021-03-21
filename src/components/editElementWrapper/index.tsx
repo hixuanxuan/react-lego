@@ -24,7 +24,8 @@ interface Props {
 // const store = {};
 const funcs = {
     begin: (mintor: DragSourceMonitor) => console.log('begin', mintor),
-    end: (item: any, mintor: DragSourceMonitor) => console.log('end', item, mintor),
+    end: (item: any, mintor: DragSourceMonitor) =>
+        console.log('end', item, mintor),
 };
 const box = {
     type: 'card',
@@ -41,7 +42,6 @@ export default function EditElementWrapper({
     const [resizing, onResize] = useState(false);
     const page = usePage();
     const conf = { page, id };
-    console.log(defaultProps);
     useInitElement(conf, defaultProps);
     const [Provider, useEditStateDefault] = useEditStateProvider(conf);
     const [{ width, height, ...style }, updater] = useEditStateDefault();
@@ -50,19 +50,19 @@ export default function EditElementWrapper({
             <Provider value={useEditStateDefault}>
                 {enable || needResize ? (
                     <Resizable
-                      className={cn(
+                        className={cn(
                             css.resizable,
                             { [css.noBorder]: noBorder },
                             { [css.resizing]: resizing },
                         )}
-                      size={{ width, height }}
-                      onResize={(e) => {
+                        size={{ width, height }}
+                        onResize={(e) => {
                             console.log('resizing');
                             e.preventDefault();
                             onResize(true);
                         }}
-                      enable={enable}
-                      onResizeStop={(e, direction, ref, d) => {
+                        enable={enable}
+                        onResizeStop={(e, direction, ref, d) => {
                             onResize(false);
                             updater({
                                 width: width + d.width,
@@ -70,21 +70,23 @@ export default function EditElementWrapper({
                             });
                         }}
                     >
-                        {children}
+                        {React.cloneElement(children, { id })}
                     </Resizable>
                 ) : (
-                    children
+                    React.cloneElement(children, { id })
                 )}
             </Provider>
         </div>
     ) : (
         <div
-          style={{
+            style={{
                 ...style,
                 ...(enable || needResize ? { width, height } : {}),
             }}
         >
-            <Provider value={useEditStateDefault}>{children}</Provider>
+            <Provider value={useEditStateDefault}>
+                {React.cloneElement(children, { id })}
+            </Provider>
         </div>
     );
 }

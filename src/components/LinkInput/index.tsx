@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import { Space, Button } from 'antd';
 import css from './index.module.less';
 import LinkModal from '@components/LinkModal';
+import { useSelfReducer } from '@/hooks';
 
 interface Props {
     unit: string;
@@ -14,6 +15,8 @@ interface Props {
 
 const LinkInput = ({ value = {}, id, onChange }: Props) => {
     const [visible, setvisible] = React.useState(false);
+    const state = useSelfReducer((state) => state);
+
     const handlebtnClick = useCallback(() => {
         setvisible(true);
     }, []);
@@ -26,11 +29,12 @@ const LinkInput = ({ value = {}, id, onChange }: Props) => {
         });
         setvisible(false);
     };
+    const url = value.type === 1 ? state[value.url].pageName : value.url;
     return (
         <>
             <div className={css.title}>设置链接</div>
             <Space size={8}>
-                <div className={css.url}>{value.url}</div>
+                <div className={css.url}>{url}</div>
                 <Button
                     onClick={handlebtnClick}
                     className={css.btn}

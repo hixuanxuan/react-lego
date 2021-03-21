@@ -3,7 +3,9 @@
  * overview: 用来存放下方 Card 列表的 List 组件
  */
 
-import React, { CSSProperties, useCallback, useState, useRef } from 'react';
+import React, {
+ CSSProperties, useCallback, useState, useRef,
+} from 'react';
 import { useDrop } from 'react-dnd';
 import Card from '@components/Card';
 import { useHandleSelect } from '@components/ContentPanel';
@@ -42,19 +44,25 @@ const FreeContainer: React.FC<IListProps> & {
     const [isHover, setHover] = useState(false);
     const [, drop] = useDrop({
         accept: 'item',
-        hover: (item, monitor) => {
-            console.log('FreeContainer-item', item, monitor);
-        },
+        // hover: (item, monitor) => {
+        //     console.log('FreeContainer-item', item, monitor);
+        // },
         drop: (item, monitor) => {
-            console.log('dropppppp');
             const hoverBoundingRect = ref.current?.getBoundingClientRect();
+            const {
+                width, height,
+            } = hoverBoundingRect;
             // 确定鼠标位置
             console.log(item.state);
             if (item.update) {
                 const diff = monitor.getDifferenceFromInitialOffset();
                 const offsetLeft = (item.state.current.left || 0) + diff.x; // - hoverBoundingRect.x;
                 const offsetTop = (item.state.current.top || 0) + diff.y; // - hoverBoundingRect.y;
-                console.log(diff, offsetLeft, offsetTop);
+                console.log('-------------->', width, height, diff, offsetLeft, offsetTop, item.state.current.offsetWidth);
+                if (offsetLeft < 0 || offsetTop < 0 || offsetLeft + item.state.current.width > width || offsetTop + item.state.current.height > height) {
+                    return false;
+                }
+                console.log('-------------->pass', width, height, diff, offsetLeft, offsetTop, item.state.current.offsetWidth);
                 item.update({
                     left: offsetLeft,
                     top: offsetTop,
@@ -64,7 +72,28 @@ const FreeContainer: React.FC<IListProps> & {
             return { update };
         },
     });
-
+    const canDrag = useCallback(
+        (elemRef, monitor) => {
+            const hoverBoundingRect = ref.current?.getBoundingClientRect();
+            const {
+                top, bottom, left, right,
+            } = hoverBoundingRect;
+            const diff = monitor.getDifferenceFromInitialOffset();
+            const {
+                width: elemWidth, height: elemHeight, x, y,
+            } = elemRef.current?.getBoundingClientRect();
+            const offsetLeft = x + diff.x; // - hoverBoundingRect.x;
+            const offsetTop = y + diff.y; // - hoverBoundingRect.y;
+            const cur = monitor.getClientOffset();
+            console.log(monitor.getSourceClientOffset());
+            console.log('canDrag', cur, hoverBoundingRect, elemHeight, elemWidth);
+            if (offsetLeft < left || offsetTop < top || offsetLeft + elemWidth > right || offsetTop + elemHeight > bottom) {
+                return false;
+            }
+            return true;
+        },
+        [],
+    );
     const moveCard = useCallback((pos, update) => {
         console.log(pos);
         // eslint-disable-next-line
@@ -72,42 +101,35 @@ const FreeContainer: React.FC<IListProps> & {
     drop(ref);
     return (
         <div
-            className={css.content}
-            style={{ ...style, background: isHover ? 'gray' : '' }}
-            ref={ref}
+          className={css.content}
+          style={{ ...style, background: isHover ? 'gray' : '' }}
+          ref={ref}
         >
             {state.children
                 ? state.children.map((item: any, index: number) => {
                       const Com = elementTypeMap[item.elementType];
                       return (
                           <EditElementWrapper
-                              id={item.id}
-                              defaultProps={Com.defaultProps}
-                              needResize
-                              noBorder
+                            id={item.id}
+                            defaultProps={Com.defaultProps}
+                            needResize
+                            noBorder
                           >
                               <Card
-                                  index={index}
-                                  type={item.type}
-                                  containerType={item.containerType}
-                                  key={item.id}
-                                  handleSelect={(e: any) => {
-                                      console.log(
-                                          e,
-                                          'handleSelect',
-                                          item,
-                                          Com.editFields,
-                                          handleSelect,
-                                      );
-
+                                index={index}
+                                type={item.type}
+                                containerType={item.containerType}
+                                key={item.id}
+                                handleSelect={(e: any) => {
                                       handleSelect({
                                           id: item.id,
                                           editFields: Com.editFields,
                                       });
-                                      console.log('ddd');
                                       e.stopPropagation();
                                   }}
-                                  moveCard={moveCard}
+                                moveCard={moveCard}
+                                canDrag={canDrag}
+                                isFree
                               >
                                   <Com />
                               </Card>

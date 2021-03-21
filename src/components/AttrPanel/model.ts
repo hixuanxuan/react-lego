@@ -4,6 +4,7 @@ import LinkInput from '../LinkInput';
 import BannerController from '../BannerController';
 import Upload from '@components/upload';
 import Colorpicker from '@components/ColorPicker';
+import ProgressCount from '@components/ProgressCount';
 export default {
     width: {
         group: 'w-h',
@@ -65,6 +66,39 @@ export default {
         valueKey: 'color',
         props: {
             id: 'color',
+        },
+    },
+    size: {
+        group: 'size',
+        Component: ProgressCount,
+        valueKey: 'size',
+        props: {
+            id: 'size',
+            title: '图标大小',
+            min: 40,
+            max: 100,
+        },
+    },
+    count: {
+        group: 'count',
+        Component: ProgressCount,
+        valueKey: 'count',
+        props: {
+            id: 'count',
+            title: '个数',
+            min: 1,
+            max: 20,
+        },
+    },
+    fontSize: {
+        group: 'fontSize',
+        Component: ProgressCount,
+        valueKey: 'fontSize',
+        props: {
+            id: 'fontSize',
+            title: '字体大小',
+            min: 12,
+            max: 40,
         },
     },
 };

@@ -12,8 +12,9 @@ interface Props {
 const box = {
     type: 'card',
 };
+const defaultExt = {};
 
-export default function AttrPanel({ id, editFields }: Props) {
+export default function AttrPanel({ id, editFields, ext = defaultExt }: Props) {
     // if (!id) {
     //     return null;
     // }
@@ -47,12 +48,19 @@ export default function AttrPanel({ id, editFields }: Props) {
         [id, page],
     );
     const handleChange = useCallback(
+        // xx.name xx.[children].[idx].name = value;
+        // xx[''[name]
+        // nav[0]color
         (name, value) => {
+            if (ext.address) {
+                // children.idx 是个字符串
+                name = ext.address + '.' + name;
+            }
             updater({
                 [name]: value,
             });
         },
-        [updater],
+        [updater, ext],
     );
     return (
         <div className={css.content}>
@@ -67,10 +75,20 @@ export default function AttrPanel({ id, editFields }: Props) {
                                 const { Component, valueKey, props } = item;
                                 return (
                                     <Component
-                                        key={valueKey}
-                                        value={data[valueKey]}
+                                        key={
+                                            ext.address
+                                                ? `${ext.address}.${valueKey}`
+                                                : valueKey
+                                        }
+                                        value={_.get(
+                                            data,
+                                            ext.address
+                                                ? `${ext.address}.${valueKey}`
+                                                : valueKey,
+                                        )}
                                         onChange={handleChange}
                                         {...props}
+                                        ext={ext}
                                     />
                                 );
                             })}

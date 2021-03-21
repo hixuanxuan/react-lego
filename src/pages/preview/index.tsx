@@ -13,7 +13,6 @@ interface PreviewProps {}
 const getEditCom = (id: string, Com: React.FC<any>) => (
     <EditElementWrapper
       id={id}
-      defaultProps={Com.defaultProps}
       enable={Com.enable}
       isEdit={false}
     >

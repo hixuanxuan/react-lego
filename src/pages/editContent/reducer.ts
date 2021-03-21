@@ -1,5 +1,6 @@
 import { produce } from 'immer';
 import undoable from 'redux-undo';
+import _ from 'lodash';
 
 const defaultState: any = {
     '1111-2222-333': {
@@ -44,7 +45,15 @@ function reducer(prev = defaultState, action: any) {
                     console.log('==============> prevChildren', prevChildren);
                     data.children = [...prevChildren, ...data.children];
                 }
-                state[page][id] = { ...prev[page][id], ...data };
+                // data 'children[idx].name': value
+                // color: red
+                // state[page][id] =
+                // _.set(state[page][id], 'children[idx].name', );
+                console.log('==============> ddd', id, data);
+                Object.keys(data).map((key) =>
+                    _.set(state[page][id], key, data[key]),
+                );
+                // state[page][id] = { ...prev[page][id], ...data };
                 break;
             }
             case 'update_list': {

@@ -5,7 +5,9 @@
 
 import React, { useRef, useMemo } from 'react';
 import { XYCoord } from 'dnd-core';
-import { DragSourceMonitor, DropTargetMonitor, useDrag, useDrop } from 'react-dnd';
+import {
+ DragSourceMonitor, DropTargetMonitor, useDrag, useDrop,
+} from 'react-dnd';
 import { useEditState } from '../editElementWrapper';
 
 const svgStyle: React.CSSProperties = {
@@ -14,7 +16,7 @@ const svgStyle: React.CSSProperties = {
     height: 20,
     top: 6,
     left: 6,
-    cursor: 'move'
+    cursor: 'move',
 };
 
 interface IProps {
@@ -22,7 +24,9 @@ interface IProps {
     moveCard: (dragIndex: number, hoverIndex: number) => void;
 }
 
-const Card: React.FC<any> = ({ bg, handleSelect, index, moveCard, id, children, containerType, type }) => {
+const Card: React.FC<any> = ({
+ bg, handleSelect, index, moveCard, id, children, containerType, type, canDrag, isFree,
+}) => {
     const ref = useRef<HTMLDivElement>(null);
     const [state, update] = useEditState();
     const stateRef = useRef(state);
@@ -31,16 +35,29 @@ const Card: React.FC<any> = ({ bg, handleSelect, index, moveCard, id, children, 
         collect: (monitor: DragSourceMonitor) => ({
             isDragging: monitor.isDragging(),
         }),
+        canDrag: canDrag && canDrag.bind(null, ref),
         // item 中包含 index 属性，则在 drop 组件 hover 和 drop 是可以根据第一个参数获取到 index 值
-        item: { type: type || 'card', index, update, state: stateRef },
+        item: {
+            type: type || 'card',
+            index,
+            update,
+            state: stateRef,
+            isFree,
+        },
+        end() {
+            console.log('end', ref);
+        },
     });
     const [, drop] = useDrop({
         accept: ['card', 'item'],
-        hover(item: { type: string; index: number}, monitor: DropTargetMonitor) {
+        hover(item: { type: string; index: number, isFree: boolean}, monitor: DropTargetMonitor) {
             if (!ref.current) {
                 return;
             }
-           
+            console.log(item.isFree);
+            if (item.isFree) {
+                return;
+            }
             const dragIndex = item.index;
             const hoverIndex = index;
 
@@ -70,7 +87,7 @@ const Card: React.FC<any> = ({ bg, handleSelect, index, moveCard, id, children, 
              *
              * 可以防止鼠标位于元素一半高度时元素抖动的状况
              */
-            if(containerType === 'free') {
+            if (containerType === 'free') {
                 if (hoverClientYBottom < 0 && hoverClientY > 0) {
                     return;
                 }
@@ -84,7 +101,6 @@ const Card: React.FC<any> = ({ bg, handleSelect, index, moveCard, id, children, 
             if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
                 return;
             }
-            
 
             // 执行 move 回调函数
             moveCard(dragIndex, hoverIndex);
@@ -97,6 +113,7 @@ const Card: React.FC<any> = ({ bg, handleSelect, index, moveCard, id, children, 
                 item.index = hoverIndex;
             }
         },
+
     });
     const style: React.CSSProperties = useMemo(() => ({
         position: 'relative',

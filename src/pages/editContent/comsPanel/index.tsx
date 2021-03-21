@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react';
-import css from './index.module.less';
 import { Collapse, Button } from 'antd';
 import Box from '@components/Box';
 import EditElementWrapper, {
@@ -7,24 +6,23 @@ import EditElementWrapper, {
 } from '@components/editElementWrapper';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSelfReducer, usePage } from '@hooks';
-
 import ListSvg from '@imgs/svg/list.svg';
 import ButtonSvg from '@imgs/svg/button.svg';
 import FreeSvg from '@imgs/svg/container.svg';
 import SwiperSvg from '@imgs/svg/swiper.svg';
 import GallerySvg from '@imgs/svg/gallery.svg';
-console.log('FreeSvg', FreeSvg);
+import CubeSvg from '@imgs/svg/cube.svg';
+import css from './index.module.less';
+
 // TODO: 先放到这里站位
-const DragLogo = ({ Logo, text }) => {
-    return (
-        <div className={css.item}>
-            <div className={css.logo}>
-                <Logo className={css.img} />
-            </div>
-            <p className={css.text}>{text}</p>
+const DragLogo = ({ Logo, text }) => (
+    <div className={css.item}>
+        <div className={css.logo}>
+            <Logo className={css.img} />
         </div>
-    );
-};
+        <p className={css.text}>{text}</p>
+    </div>
+);
 const { Panel } = Collapse;
 const defaultPageValue: {} = {
     list: [],
@@ -55,11 +53,11 @@ const ComsPanel = () => {
                     <Panel header="容器" key="1">
                         <div className={css.content}>
                             <Box
-                                elementType={'FreeContainer'}
+                                elementType="FreeContainer"
                                 cardList={list}
                                 changeCardList={changeCardList}
                             >
-                                <DragLogo Logo={FreeSvg} text={'自由容器'} />
+                                <DragLogo Logo={FreeSvg} text="自由容器" />
                             </Box>
                         </div>
                     </Panel>
@@ -67,26 +65,38 @@ const ComsPanel = () => {
                         <div className={css.content}>
                             <Box
                                 accept="item"
-                                elementType={'ButtonDemo'}
+                                elementType="ButtonDemo"
                                 cardList={list}
                                 changeCardList={changeCardList}
                             >
-                                <DragLogo Logo={ButtonSvg} text={'按钮'} />
+                                <DragLogo Logo={ButtonSvg} text="按钮" />
                             </Box>
                             <Box
-                                elementType={'Carousel'}
+                                elementType="Carousel"
                                 cardList={list}
                                 changeCardList={changeCardList}
                             >
-                                <DragLogo Logo={SwiperSvg} text={'轮播图'} />
+                                <DragLogo Logo={SwiperSvg} text="轮播图" />
                             </Box>
                             <Box
                                 accept="item"
-                                elementType={'ImageCom'}
+                                elementType="ImageCom"
                                 cardList={list}
                                 changeCardList={changeCardList}
                             >
-                                <DragLogo Logo={GallerySvg} text={'图文'} />
+                                <DragLogo Logo={GallerySvg} text="图文" />
+                            </Box>
+                        </div>
+                    </Panel>
+                    <Panel header="高级组件" key="3">
+                        <div className={css.content}>
+                            <Box
+                                accept="item"
+                                elementType="CubeNav"
+                                cardList={list}
+                                changeCardList={changeCardList}
+                            >
+                                <DragLogo Logo={CubeSvg} text="魔方导航" />
                             </Box>
                         </div>
                     </Panel>

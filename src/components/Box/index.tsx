@@ -8,10 +8,25 @@ import { Button } from 'antd';
 import { DragSourceMonitor, useDrag } from 'react-dnd';
 import { v4 as uuid } from 'uuid';
 import Carousel from '@components/carousel';
-import { useEditState } from '../editElementWrapper';
 import FreeContainer from '@components/freeContainer';
 import { useParams } from 'react-router-dom';
+import { useEditState } from '../editElementWrapper';
+import CubeNav from '@components/cubeNav';
+
 const id = 1;
+
+// function Demo() {
+//     const [{ background = 'black' }, updater] = useEditState();
+//     return (
+//         <div className={css.test} style={{ background }}>
+//             颜色可编辑：
+//             <input
+//               type="text"
+//               onBlur={(e) => updater({ background: e.target.value })}
+//             />
+//         </div>
+//     );
+// }
 
 function ButtonDemo() {
     const [{ text = '按钮', width, height, link }] = useEditState();
@@ -48,7 +63,7 @@ const ImageCom = () => {
     return (
         <div style={{ width, height }}>
             <img style={{ width: '100%' }} src={src} />
-            <p style={{ color: color }}>{text}</p>
+            <p style={{ color }}>{text}</p>
         </div>
     );
 };
@@ -66,6 +81,7 @@ export const elementTypeMap = {
     ButtonDemo,
     FreeContainer,
     Carousel,
+    CubeNav,
 };
 const Box: React.FC<any> = ({
     elementType,

@@ -113,6 +113,7 @@ const LinkModal: React.FC<LinkModalProps> = ({ visible, onOk, setVisible }) => {
     };
     const onHandleOK = (value) => {
         // 吐出去是内链还是外链以及url
+        console.log(checked, value);
         onOk(checked, value[chooseMap[checked]?.name]);
     };
     const onFinish = (value) => {

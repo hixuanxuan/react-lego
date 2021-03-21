@@ -1,10 +1,13 @@
 /**
- * filename: ContentPanel
- * overview: 用来存放下方 Card 列表的 ContentPanel 组件
+ * filename: List
+ * overview: 用来存放下方 Card 列表的 List 组件
  */
 
 import React, {
- CSSProperties, useCallback, createContext, useContext,
+    CSSProperties,
+    useCallback,
+    createContext,
+    useContext,
 } from 'react';
 import { useDrop } from 'react-dnd';
 import Card from '@components/Card';
@@ -12,24 +15,23 @@ import { elementTypeMap } from '@components/Box';
 import EditElementWrapper, {
     useEditState,
 } from '@components/editElementWrapper';
-import css from './index.module.less';
 
 const style: CSSProperties = {
     backgroundColor: 'white',
-    // border: '1px dashed gray',
-    // margin: '100px auto',
-    // minHeight: '300px',
-    // padding: '0 10px',
-    // textAlign: 'center',
-    // width: 300,
+    border: '1px dashed gray',
+    margin: '100px auto',
+    minHeight: '300px',
+    textAlign: 'center',
+    overflowY: 'scroll',
+    width: 300,
 };
 
 export interface IListProps {
     cardList: any[];
-    handleSelect: (params: any) => void;
     changeCardList: (list: any[]) => void;
+    handleSelect: (params: { id: string; editFields: string[] }) => void;
 }
-const getEditCom = (id: string, Com: React.FC<any>) => (
+const getEditCom = (id: string, Com: React.FC<any> & { enable?: any }) => (
     <EditElementWrapper
       id={id}
       defaultProps={Com.defaultProps}
@@ -79,37 +81,36 @@ const List: React.FC<IListProps> = ({
         },
         [cardList],
     );
-    console.log(cardList);
     return (
         <ListContext.Provider value={handleSelect}>
-            <div className={css.wrapper}>
-                <div className={css.inline} style={style} ref={drop}>
-                    {cardList.length <= 0 ? (
-                        <div style={{ lineHeight: '60px' }}>放入组件</div>
-                    ) : (
-                        cardList.map((item: any, index: number) => (
-                            <Card
-                              index={index}
-                              key={item.id}
-                              handleSelect={() => {
-                                    handleSelect({
-                                        id: item.id,
-                                        editFields:
-                                            elementTypeMap[item.elementType]
-                                                .editFields,
-                                    });
-                                }}
-                              moveCard={moveCard}
-                            >
-                                {elementTypeMap[item.elementType]
-                                    && getEditCom(
-                                        item.id,
-                                        elementTypeMap[item.elementType],
-                                    )}
-                            </Card>
-                        ))
-                    )}
-                </div>
+            <div style={style} ref={drop}>
+                {cardList.length <= 0 ? (
+                    <div style={{ lineHeight: '60px' }}>放入组件</div>
+                ) : (
+                    cardList.map((item: any, index: number) => (
+                        <Card
+                          index={index}
+                          type={item.type}
+                          containerType={item.containerType}
+                          key={item.id}
+                          handleSelect={() => {
+                                handleSelect({
+                                    id: item.id,
+                                    editFields:
+                                        elementTypeMap[item.elementType]
+                                            .editFields,
+                                });
+                            }}
+                          moveCard={moveCard}
+                        >
+                            {elementTypeMap[item.elementType]
+                                && getEditCom(
+                                    item.id,
+                                    elementTypeMap[item.elementType],
+                                )}
+                        </Card>
+                    ))
+                )}
             </div>
         </ListContext.Provider>
     );
