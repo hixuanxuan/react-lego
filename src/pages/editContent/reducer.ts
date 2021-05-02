@@ -30,7 +30,7 @@ function reducer(prev = defaultState, action: any) {
             case 'delete_section_data': {
                 const { id, pageId } = action;
                 const newList = state[pageId].list.filter(item => item.id !== id);
-                console.log(id, pageId, newList);
+                console.log('id', id, pageId, newList);
                 delete state[pageId][id];
                 state[pageId].list = newList;
                 break;
@@ -58,9 +58,7 @@ function reducer(prev = defaultState, action: any) {
                 // state[page][id] =
                 // _.set(state[page][id], 'children[idx].name', );
                 console.log('==============> ddd', id, data);
-                Object.keys(data).map((key) =>
-                    _.set(state[page][id], key, data[key]),
-                );
+                Object.keys(data).map((key) => _.set(state[page][id], key, data[key]));
                 // state[page][id] = { ...prev[page][id], ...data };
                 break;
             }

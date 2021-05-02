@@ -1,10 +1,10 @@
 import React, { useCallback } from 'react';
 import { usePage } from '@hooks';
-import Conf from './model';
 import useSelfReducer from '@hooks/useSelfReducer';
-import css from './index.module.less';
 import { useDispatch } from 'react-redux';
 import { Button } from 'antd';
+import css from './index.module.less';
+import Conf from './model';
 
 interface Props {
     id: string;
@@ -60,7 +60,7 @@ export default function AttrPanel({
         (name, value) => {
             if (ext.address) {
                 // children.idx 是个字符串
-                name = ext.address + '.' + name;
+                name = `${ext.address}.${name}`;
             }
             updater({
                 [name]: value,
@@ -79,7 +79,7 @@ export default function AttrPanel({
             id: '',
             editFields: [],
         });
-    }, []);
+    }, [id, page]);
     return (
         <div className={css.content}>
             <div className={css.title}>属性</div>
@@ -93,20 +93,20 @@ export default function AttrPanel({
                                 const { Component, valueKey, props } = item;
                                 return (
                                     <Component
-                                        key={
+                                      key={
                                             ext.address
                                                 ? `${ext.address}.${valueKey}`
                                                 : valueKey
                                         }
-                                        value={_.get(
+                                      value={_.get(
                                             data,
                                             ext.address
                                                 ? `${ext.address}.${valueKey}`
                                                 : valueKey,
                                         )}
-                                        onChange={handleChange}
-                                        {...props}
-                                        ext={ext}
+                                      onChange={handleChange}
+                                      {...props}
+                                      ext={ext}
                                     />
                                 );
                             })}
