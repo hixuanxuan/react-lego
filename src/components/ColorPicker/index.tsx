@@ -15,8 +15,9 @@ interface ColorType {
     hex: string;
 }
 const ColorPicker = (props: ColorPickerProps) => {
-    const { defaultColor, onChange, id } = props;
+    const { onChange, id, value: defaultColor } = props;
     const defaultRBGA = Color(defaultColor).object();
+
     const [color, setColor] = React.useState({
         rgb: {
             r: defaultRBGA.r,
@@ -25,7 +26,8 @@ const ColorPicker = (props: ColorPickerProps) => {
             a: defaultRBGA.alpha,
         },
     });
-    const [hexValue, setHexValue] = React.useState(defaultColor);
+    console.log('defaultRBGA', defaultRBGA, defaultColor, color);
+    const [hexValue, setHexValue] = React.useState(Color(defaultColor).hex());
 
     const [opacity, setOpacity] = React.useState(1);
     const handleChange = (newColor: any) => {
@@ -83,7 +85,7 @@ const ColorPicker = (props: ColorPickerProps) => {
                         <i
                             className={css['color-picker-box']}
                             style={{
-                                background: `rgba(${color.rgb.r},${color.rgb.g},${color.rgb.b},${color.rgb.a})`,
+                                background: `rgba(${color.rgb.r},${color.rgb.g},${color.rgb.b},${color.rgb.a || 1})`,
                             }}
                         />
                     </Popover>

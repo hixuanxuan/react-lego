@@ -11,7 +11,7 @@ const ESLintPlugin = require('eslint-webpack-plugin');
 const internalIp = require('internal-ip');
 const chalk = require('chalk');
 
-const port = 8000;
+const port = 3005;
 const serverBaseURL = process.env.hostname || 'localhost';
 const paths = require('./paths');
 const getDevServerConf = require('./dev-server');

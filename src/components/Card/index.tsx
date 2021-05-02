@@ -23,7 +23,7 @@ interface IProps {
     index: number;
     moveCard: (dragIndex: number, hoverIndex: number) => void;
 }
-
+let timer = 0;
 const Card: React.FC<any> = ({
  bg, handleSelect, index, moveCard, id, children, containerType, type, canDrag, isFree,
 }) => {
@@ -101,9 +101,12 @@ const Card: React.FC<any> = ({
             if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
                 return;
             }
-
-            // 执行 move 回调函数
-            moveCard(dragIndex, hoverIndex);
+            if(Date.now() > timer + 200) {
+                // 执行 move 回调函数
+                moveCard(dragIndex, hoverIndex);
+                timer = Date.now();
+            }
+            
 
             /**
              * 如果拖拽的组件为 Box，则 dragIndex 为 undefined，此时不对 item 的 index 进行修改

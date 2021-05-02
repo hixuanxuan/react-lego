@@ -12,7 +12,7 @@ const RoundNavItem = ({ id, idx, text, src, size, color, fontSize }) => {
                 e.stopPropagation();
                 handleSelect({
                     id,
-                    editFields: ['fontSize', 'color', 'upload', 'text'],
+                    editFields: ['fontSize', 'color', 'upload2', 'text'],
                     ext: { address: 'navs.' + idx },
                 });
             }}

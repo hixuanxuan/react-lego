@@ -4,15 +4,15 @@
  */
 
 import React from 'react';
-import { Button } from 'antd';
+import { Button, message } from 'antd';
 import { DragSourceMonitor, useDrag } from 'react-dnd';
 import { v4 as uuid } from 'uuid';
 import Carousel from '@components/carousel';
 import FreeContainer from '@components/freeContainer';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { useEditState } from '../editElementWrapper';
 import CubeNav from '@components/cubeNav';
-
+import TextCom from '@components/Text';
 const id = 1;
 
 // function Demo() {
@@ -27,10 +27,43 @@ const id = 1;
 //         </div>
 //     );
 // }
-
+function ImageDemo() {
+    const [{ width, height, link, src }] = useEditState();
+    const params = useParams();
+    console.log('link', link);
+    const history = useHistory();
+    const onClick = () => {
+        console.log('url', params);
+        if (!link?.type) {
+            return;
+        }
+        if (process.env.IS_CLIENT === 'true'){
+        switch (link.type) {
+            case 1:
+                history.push(`/client/${params.pro}/${link.url}`);
+                break;
+            case 2:
+                window.open(link.url);
+            default:
+                break;
+        }
+    }else {
+        message.warn('您当前处于编辑状态，不可进行跳转');
+    }
+    };
+    return (
+        <img src={src} style={{width, height}} onClick={onClick} />
+    )
+}
+ImageDemo.editFields = ['width', 'height', 'link', 'nocropUpload'];
+ImageDemo.defaultProps = {
+    width: '100%',
+    // height: 32,
+};
 function ButtonDemo() {
     const [{ text = '按钮', width, height, link }] = useEditState();
     const params = useParams();
+    const history = useHistory();
     const onClick = () => {
         console.log('url', params);
         if (!link?.type) {
@@ -38,7 +71,7 @@ function ButtonDemo() {
         }
         switch (link.type) {
             case 1:
-                history.push(`/${params.pro}/${link.url}`);
+                history.push(`/client/${params.pro}/${link.url}`);
                 break;
             case 2:
                 window.open(link.url);
@@ -82,6 +115,8 @@ export const elementTypeMap = {
     FreeContainer,
     Carousel,
     CubeNav,
+    TextCom,
+    ImageDemo
 };
 const Box: React.FC<any> = ({
     elementType,

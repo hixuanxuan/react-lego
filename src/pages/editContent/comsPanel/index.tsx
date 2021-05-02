@@ -12,6 +12,8 @@ import FreeSvg from '@imgs/svg/container.svg';
 import SwiperSvg from '@imgs/svg/swiper.svg';
 import GallerySvg from '@imgs/svg/gallery.svg';
 import CubeSvg from '@imgs/svg/cube.svg';
+import TextSvg from '@imgs/svg/text.svg';
+import ImageSvg from '@imgs/svg/image.svg';
 import css from './index.module.less';
 
 // TODO: 先放到这里站位
@@ -70,6 +72,22 @@ const ComsPanel = () => {
                                 changeCardList={changeCardList}
                             >
                                 <DragLogo Logo={ButtonSvg} text="按钮" />
+                            </Box>
+                            <Box
+                                accept="item"
+                                elementType="TextCom"
+                                cardList={list}
+                                changeCardList={changeCardList}
+                            >
+                                <DragLogo Logo={TextSvg} text="文本" />
+                            </Box>
+                            <Box
+                                accept="item"
+                                elementType="ImageDemo"
+                                cardList={list}
+                                changeCardList={changeCardList}
+                            >
+                                <DragLogo Logo={ImageSvg} text="图片" />
                             </Box>
                             <Box
                                 elementType="Carousel"

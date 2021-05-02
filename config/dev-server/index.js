@@ -47,8 +47,8 @@ module.exports = async function ({
         compress: true,
         quiet: true,
         proxy: {
-            '/api': 'http://49.234.70.125:3000',
-            '/user': 'http://49.234.70.125:3000',
+            '/api': 'http://49.234.70.125:3005',
+            '/user': 'http://49.234.70.125:3005',
         },
         before(app, server) {
             // 报错定位两兄弟

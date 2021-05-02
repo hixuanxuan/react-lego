@@ -74,22 +74,22 @@ const FreeContainer: React.FC<IListProps> & {
     });
     const canDrag = useCallback(
         (elemRef, monitor) => {
-            const hoverBoundingRect = ref.current?.getBoundingClientRect();
-            const {
-                top, bottom, left, right,
-            } = hoverBoundingRect;
-            const diff = monitor.getDifferenceFromInitialOffset();
-            const {
-                width: elemWidth, height: elemHeight, x, y,
-            } = elemRef.current?.getBoundingClientRect();
-            const offsetLeft = x + diff.x; // - hoverBoundingRect.x;
-            const offsetTop = y + diff.y; // - hoverBoundingRect.y;
-            const cur = monitor.getClientOffset();
-            console.log(monitor.getSourceClientOffset());
-            console.log('canDrag', cur, hoverBoundingRect, elemHeight, elemWidth);
-            if (offsetLeft < left || offsetTop < top || offsetLeft + elemWidth > right || offsetTop + elemHeight > bottom) {
-                return false;
-            }
+            // const hoverBoundingRect = ref.current?.getBoundingClientRect();
+            // const {
+            //     top, bottom, left, right,
+            // } = hoverBoundingRect;
+            // const diff = monitor.getDifferenceFromInitialOffset();
+            // const {
+            //     width: elemWidth, height: elemHeight, x, y,
+            // } = elemRef.current?.getBoundingClientRect();
+            // const offsetLeft = x + diff.x; // - hoverBoundingRect.x;
+            // const offsetTop = y + diff.y; // - hoverBoundingRect.y;
+            // const cur = monitor.getClientOffset();
+            // console.log(monitor.getSourceClientOffset());
+            // console.log('canDrag', cur, hoverBoundingRect, elemHeight, elemWidth);
+            // if (offsetLeft < left || offsetTop < top || offsetLeft + elemWidth > right || offsetTop + elemHeight > bottom) {
+            //     return false;
+            // }
             return true;
         },
         [],

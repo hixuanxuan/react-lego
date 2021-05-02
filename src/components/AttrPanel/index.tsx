@@ -4,6 +4,7 @@ import Conf from './model';
 import useSelfReducer from '@hooks/useSelfReducer';
 import css from './index.module.less';
 import { useDispatch } from 'react-redux';
+import { Button } from 'antd';
 
 interface Props {
     id: string;
@@ -14,7 +15,12 @@ const box = {
 };
 const defaultExt = {};
 
-export default function AttrPanel({ id, editFields, ext = defaultExt }: Props) {
+export default function AttrPanel({
+    id,
+    editFields,
+    ext = defaultExt,
+    selectSection,
+}: Props) {
     // if (!id) {
     //     return null;
     // }
@@ -62,6 +68,18 @@ export default function AttrPanel({ id, editFields, ext = defaultExt }: Props) {
         },
         [updater, ext],
     );
+    // delete_section_data
+    const handleDeleteCom = useCallback(() => {
+        dispatch({
+            type: 'delete_section_data',
+            id,
+            pageId: page,
+        });
+        selectSection({
+            id: '',
+            editFields: [],
+        });
+    }, []);
     return (
         <div className={css.content}>
             <div className={css.title}>属性</div>
@@ -97,6 +115,11 @@ export default function AttrPanel({ id, editFields, ext = defaultExt }: Props) {
                         </div>
                     );
                 })}
+                {!!id && (
+                    <Button type="dashed" onClick={handleDeleteCom}>
+                        删除该组件
+                    </Button>
+                )}
             </div>
         </div>
     );

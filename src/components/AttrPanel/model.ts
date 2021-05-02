@@ -60,6 +60,15 @@ export default {
             id: 'src',
         },
     },
+    upload2: {
+        group: 'upload',
+        Component: Upload,
+        valueKey: 'src',
+        props: {
+            id: 'src',
+            aspect: 1,
+        },
+    },
     color: {
         group: 'color',
         Component: Colorpicker,
@@ -99,6 +108,15 @@ export default {
             title: '字体大小',
             min: 12,
             max: 40,
+        },
+    },
+    nocropUpload: {
+        group: 'upload',
+        Component: Upload,
+        valueKey: 'src',
+        props: {
+            id: 'src',
+            needCrop: false,
         },
     },
 };

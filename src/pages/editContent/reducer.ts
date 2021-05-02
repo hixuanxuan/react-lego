@@ -27,6 +27,14 @@ function reducer(prev = defaultState, action: any) {
                 delete state[key];
                 break;
             }
+            case 'delete_section_data': {
+                const { id, pageId } = action;
+                const newList = state[pageId].list.filter(item => item.id !== id);
+                console.log(id, pageId, newList);
+                delete state[pageId][id];
+                state[pageId].list = newList;
+                break;
+            }
             case 'init_section': {
                 const { page, id, data } = action;
                 state[page][id] = data;

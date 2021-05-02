@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import { Upload } from 'antd';
 import ImgCrop from 'antd-img-crop';
 import css from './index.module.less';
 
 const Demo = (props) => {
-    const { value: src, onChange, id } = props;
+    const { value: src, onChange, id, aspect = 2, needCrop = true } = props;
     const defalut = [];
     if (src) {
         defalut.push({ url: src });
@@ -45,29 +45,28 @@ const Demo = (props) => {
         const imgWindow = window.open(src);
         imgWindow.document.write(image.outerHTML);
     };
-
+    const Com = needCrop ? ImgCrop : Fragment;
     return (
         <div className={css.wrapper}>
             <div className={css.title}>
                 <p className={css.left}>添加图片</p>
                 <p className={css.right}>
                     已选择
-                    {count}
-                    张
+                    {count}张
                 </p>
             </div>
-            <ImgCrop rotate aspect={2}>
+            <Com rotate aspect={aspect}>
                 <Upload
-                  action="/api/upload"
-                  listType="picture-card"
-                  fileList={fileList}
-                  onChange={handleImageChange}
-                  onPreview={onPreview}
-                  onRemove={handleImageRemove}
+                    action="/api/upload"
+                    listType="picture-card"
+                    fileList={fileList}
+                    onChange={handleImageChange}
+                    onPreview={onPreview}
+                    onRemove={handleImageRemove}
                 >
                     {fileList.length < 1 && '+ Upload'}
                 </Upload>
-            </ImgCrop>
+            </Com>
         </div>
     );
 };
