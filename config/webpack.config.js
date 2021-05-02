@@ -1,9 +1,8 @@
 const argv = require('minimist')(process.argv.slice(2));
+const fs = require('fs')
 const mode = argv.mode || 'development';
 process.env.NODE_ENV = mode;
-console.log(process.env.IS_CLIENT)
 process.env.IS_CLIENT = process.env.IS_CLIENT || 'false';
-console.log(process.env.IS_CLIENT)
 
 const webpack = require('webpack');
 const {
@@ -22,6 +21,9 @@ const getClientEnvironment = require('./env');
 
 // 获取 resolved path
 const paths = require('./paths');
+const exportData = (() => {
+    return process.env.IS_EXPORT ? true : null;
+})();
 
 const isEnvDevelopment = mode === 'development';
 const isEnvProduction = mode === 'production';
@@ -131,6 +133,13 @@ const webpackBaseConfig = {
                 type: 'asset',
             },
             {
+                test: /\.(json)$/,
+                type: 'asset/resource',
+                generator: {
+                    filename: 'static/[name][ext]'
+                }
+            },
+            {
                 oneOf: [{
                         test: /\.(js|jsx|ts|tsx)$/,
                         include: [paths.appSrc],
@@ -237,7 +246,8 @@ const webpackBaseConfig = {
         // new AntdDayjsWebpackPlugin(),
         new webpack.DefinePlugin(getClientEnvironment()),
         new webpack.DefinePlugin({
-            'process.env.IS_CLIENT': JSON.stringify(process.env.IS_CLIENT)
+            'process.env.IS_CLIENT': JSON.stringify(process.env.IS_CLIENT),
+            'process.env.export': JSON.stringify(exportData)
         }),
         new HtmlWebpackPlugin({
             title: '百家号',

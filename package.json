@@ -7,6 +7,7 @@
         "start": "export IS_CLIENT=false; export NODE_OPTIONS=--max_old_space_size=8192 && webpack serve --config ./config/webpack.config.js",
         "build:dll": "rm -rf dll/*;export NODE_ENV=production;node ./node_modules/webpack/bin/webpack.js --config config/webpack.config.dll.js",
         "build": "export IS_CLIENT=false; webpack --mode production --config ./config/webpack.config.js",
+        "build:export": "export IS_EXPORT=true;export IS_CLIENT=true; webpack --mode production --config ./config/webpack.config.js",
         "build:client": "export IS_CLIENT=true; webpack --mode production --config ./config/webpack.config.js",
         "analyze": "webpack --mode production --analyze --config ./config/webpack.config.js",
         "lint": "npx eslint --ext .jsx,.ts,.tsx ./src/",
