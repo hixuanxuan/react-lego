@@ -1,5 +1,6 @@
 import { produce } from 'immer';
 import undoable from 'redux-undo';
+import { CaclPixel } from '@utils';
 
 const defaultState: any = {
     '1111-2222-333': {
@@ -7,6 +8,17 @@ const defaultState: any = {
         list: [],
     },
 };
+function cacl(data: object) {
+    Object.keys(data).forEach((key) => {
+        if (['width', 'height', 'left', 'top', 'fontSize'].includes(key)) {
+            data[key] = CaclPixel(data[key]);
+        }
+        if (typeof data[key] === 'object') {
+            cacl(data[key]);
+        }
+    });
+}
+document.body.style.fontSize = `${CaclPixel(12)}px`;
 function reducer(prev = defaultState, action: any) {
     return produce(prev, (state: any) => {
         const { type } = action;
@@ -14,6 +26,7 @@ function reducer(prev = defaultState, action: any) {
             case 'reset_project_data': {
                 console.log('------------>reset_project_data');
                 const { data } = action;
+                cacl(data);
                 return data;
             }
             case 'create_page_data': {

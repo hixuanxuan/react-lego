@@ -25,6 +25,8 @@ const getEditCom = (id: string, Com: React.FC<any>) => (
         <Com />
     </EditElementWrapper>
 );
+
+
 const Client = (props: PreviewProps) => {
     const { pageId, projectId } = useParams();
     const [PageProvider, page] = usePageProvider(pageId);
