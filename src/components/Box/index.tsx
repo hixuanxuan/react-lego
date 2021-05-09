@@ -37,23 +37,21 @@ function ImageDemo() {
         if (!link?.type) {
             return;
         }
-        if (process.env.IS_CLIENT === 'true'){
-        switch (link.type) {
-            case 1:
-                history.push(`/client/${params.pro}/${link.url}`);
-                break;
-            case 2:
-                window.open(link.url);
-            default:
-                break;
+        if (process.env.IS_CLIENT === 'true') {
+            switch (link.type) {
+                case 1:
+                    history.push(`/client/${params.pro}/${link.url}`);
+                    break;
+                case 2:
+                    window.open(link.url);
+                default:
+                    break;
+            }
+        } else {
+            message.warn('您当前处于编辑状态，不可进行跳转');
         }
-    }else {
-        message.warn('您当前处于编辑状态，不可进行跳转');
-    }
     };
-    return (
-        <img src={src} style={{width, height}} onClick={onClick} />
-    )
+    return <img src={src} style={{ width, height }} onClick={onClick} />;
 }
 ImageDemo.editFields = ['width', 'height', 'link', 'nocropUpload'];
 ImageDemo.defaultProps = {
@@ -96,7 +94,7 @@ const ImageCom = () => {
     return (
         <div style={{ width, height }}>
             <img style={{ width: '100%' }} src={src} />
-            <p style={{ color }}>{text}</p>
+            <p style={{ color, textAlign: 'center' }}>{text}</p>
         </div>
     );
 };
@@ -116,7 +114,7 @@ export const elementTypeMap = {
     Carousel,
     CubeNav,
     TextCom,
-    ImageDemo
+    ImageDemo,
 };
 const Box: React.FC<any> = ({
     elementType,

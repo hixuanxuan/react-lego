@@ -98,7 +98,7 @@ const App: React.FC<{}> = () => {
                             Notification.requestPermission(function (status) {
                                 console.log(status); // 仅当值为 "granted" 时显示通知
                                 var n = new Notification('提示', {
-                                    icon: require('@imgs/logo.lego.png'),
+                                    icon: require('@imgs/logo-lego.png'),
                                     body: '文件开始下载了~',
                                 }); // 显示通知
                             });

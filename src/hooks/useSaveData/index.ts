@@ -12,6 +12,7 @@ export default function useSaveData(id) {
         if (Date.now() - timer.current < Gap) {
             return;
         }
+
         timer.current = Date.now();
         request
             .post(SaveUrl, { id, data: JSON.stringify(data) })

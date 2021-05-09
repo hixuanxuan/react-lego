@@ -39,6 +39,7 @@ export default function EditElementWrapper({
     enable,
     isEdit = true,
 }: Props) {
+    console.log('isEdit', isEdit);
     const [resizing, onResize] = useState(false);
     const page = usePage();
     const conf = { page, id };
