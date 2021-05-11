@@ -1,0 +1,55 @@
+@import 'antd/dist/antd.less';
+@main-color: #254ec3;
+
+svg {
+    display: inline-block;
+}
+
+p {
+    margin-bottom: 0;
+}
+
+.backdrop-blur-bg {
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: 0px 4px 12px 0px rgba(19, 23, 70, 0.06);
+    border-radius: 16px;
+    border: 1px solid #ffffff;
+    backdrop-filter: blur(10px);
+}
+
+.lego-tabs {
+    .ant-tabs-nav-list {
+        height: 36px;
+        background: rgba(255, 255, 255, 0.5);
+        box-shadow: 0px 4px 12px 0px rgba(19, 23, 70, 0.06);
+        border-radius: 20px;
+        border: 1px solid #ffffff;
+        display: flex;
+        align-items: center;
+        padding: 1px;
+    }
+
+    &.ant-tabs-top> {
+        .ant-tabs-nav::before {
+            border-bottom: 0;
+        }
+
+        .ant-tabs-nav .ant-tabs-ink-bar {
+            height: calc(100% - 2px);
+            top: 1px;
+            z-index: -1;
+            border-radius: 50px;
+        }
+    }
+
+    .ant-tabs-tab {
+        margin-right: 0;
+        padding: 0 32px;
+
+        &.ant-tabs-tab-active {
+            .ant-tabs-tab-btn {
+                color: #ffffff;
+            }
+        }
+    }
+}

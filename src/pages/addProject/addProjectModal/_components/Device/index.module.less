@@ -1,0 +1,77 @@
+.type {
+    border-radius: 12px;
+    display: inline-block;
+    padding: 8px 16px;
+    cursor: pointer;
+    background-color: transparent;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    &:global(.is-active) {
+        background: rgba(19, 23, 70, 0.16);
+        .typename,
+        .size {
+            color: @main-color;
+            opacity: 1;
+        }
+    }
+}
+
+.iconbox {
+    background-color: #fff;
+    padding: 8px;
+    box-shadow: 0px 1px 3px 0px rgba(19, 23, 70, 0.12);
+    border-radius: 10px;
+    width: 64px;
+    height: 64px;
+}
+.icon {
+    width: 48px;
+    height: 48px;
+    display: block;
+}
+
+.typename,
+.size {
+    text-align: center;
+    color: @text-color;
+}
+
+.typename {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    margin-top: 4px;
+}
+.size {
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 18px;
+    opacity: 0.7;
+}
+
+.custom {
+    display: flex;
+    margin-top: 8px;
+    color: fade(@text-color, 70);
+    align-items: center;
+    .input {
+        outline: none;
+        width: 96px;
+        height: 28px;
+        background: rgba(19, 23, 70, 0.08);
+        border-radius: 19px;
+        color: fade(@text-color, 70);
+        border: none;
+        text-align: center;
+        font-size: 12px;
+        &:first-child {
+            margin-right: 8px;
+        }
+        &:last-child {
+            margin-left: 8px;
+        }
+    }
+}
