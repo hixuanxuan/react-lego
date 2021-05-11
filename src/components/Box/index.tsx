@@ -1,6 +1,7 @@
 /**
  * filename: Box
  * overview: 用来承载界面最上方水果类型的 Box 组件
+ * 左侧可以拖动的能力
  */
 
 import React from 'react';

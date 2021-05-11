@@ -1,12 +1,16 @@
 /**
  * filename: Card
  * overview: 根据放入 Box 生成的 Card 组件
+ * 中间区域可以拖动的能力
  */
 
 import React, { useRef, useMemo } from 'react';
 import { XYCoord } from 'dnd-core';
 import {
- DragSourceMonitor, DropTargetMonitor, useDrag, useDrop,
+    DragSourceMonitor,
+    DropTargetMonitor,
+    useDrag,
+    useDrop,
 } from 'react-dnd';
 import { useEditState } from '../editElementWrapper';
 
@@ -25,7 +29,16 @@ interface IProps {
 }
 let timer = 0;
 const Card: React.FC<any> = ({
- bg, handleSelect, index, moveCard, id, children, containerType, type, canDrag, isFree,
+    bg,
+    handleSelect,
+    index,
+    moveCard,
+    id,
+    children,
+    containerType,
+    type,
+    canDrag,
+    isFree,
 }) => {
     const ref = useRef<HTMLDivElement>(null);
     const [state, update] = useEditState();
@@ -50,7 +63,10 @@ const Card: React.FC<any> = ({
     });
     const [, drop] = useDrop({
         accept: ['card', 'item'],
-        hover(item: { type: string; index: number, isFree: boolean}, monitor: DropTargetMonitor) {
+        hover(
+            item: { type: string; index: number; isFree: boolean },
+            monitor: DropTargetMonitor,
+        ) {
             if (!ref.current) {
                 return;
             }
@@ -65,16 +81,19 @@ const Card: React.FC<any> = ({
             const hoverBoundingRect = ref.current!.getBoundingClientRect();
 
             // 获取中点垂直坐标
-            const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+            const hoverMiddleY =
+                (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
 
             // 确定鼠标位置
             const clientOffset = monitor.getClientOffset();
 
             // 获取距顶部距离
-            const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top;
+            const hoverClientY =
+                (clientOffset as XYCoord).y - hoverBoundingRect.top;
 
             // 获取距底部距离
-            const hoverClientYBottom = (clientOffset as XYCoord).y - hoverBoundingRect.bottom + 20;
+            const hoverClientYBottom =
+                (clientOffset as XYCoord).y - hoverBoundingRect.bottom + 20;
             // 拖拽元素下标与鼠标悬浮元素下标一致时，不进行操作
             if (dragIndex === hoverIndex) {
                 return;
@@ -101,12 +120,11 @@ const Card: React.FC<any> = ({
             if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
                 return;
             }
-            if(Date.now() > timer + 200) {
+            if (Date.now() > timer + 200) {
                 // 执行 move 回调函数
                 moveCard(dragIndex, hoverIndex);
                 timer = Date.now();
             }
-            
 
             /**
              * 如果拖拽的组件为 Box，则 dragIndex 为 undefined，此时不对 item 的 index 进行修改
@@ -116,15 +134,17 @@ const Card: React.FC<any> = ({
                 item.index = hoverIndex;
             }
         },
-
     });
-    const style: React.CSSProperties = useMemo(() => ({
-        position: 'relative',
-        background: bg,
-        // Card 为占位元素是，透明度 0.4，拖拽状态时透明度 0.2，正常情况透明度为 1
-        opacity: id === -1 ? 0.4 : isDragging ? 0.2 : 1,
-        verticalAlign: 40,
-    }), [bg, id, isDragging]);
+    const style: React.CSSProperties = useMemo(
+        () => ({
+            position: 'relative',
+            background: bg,
+            // Card 为占位元素是，透明度 0.4，拖拽状态时透明度 0.2，正常情况透明度为 1
+            opacity: id === -1 ? 0.4 : isDragging ? 0.2 : 1,
+            verticalAlign: 40,
+        }),
+        [bg, id, isDragging],
+    );
 
     /**
      * 使用 drag 和 drop 对 ref 进行包裹，则组件既可以进行拖拽也可以接收拖拽组件
