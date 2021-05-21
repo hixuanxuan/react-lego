@@ -1,0 +1,1 @@
+(self.webpackChunkreact17_webpack5_cli=self.webpackChunkreact17_webpack5_cli||[]).push([[975],{95050:(e,a,t)=>{"use strict";t.r(a),t.d(a,{default:()=>r});var c=t(67294);const r=()=>c.createElement("iframe",{src:"http://49.234.70.125:4000/app/app/lego",style:{width:"100vw",height:"100vh"},frameBorder:"0"})}}]);

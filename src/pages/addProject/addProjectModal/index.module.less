@@ -1,0 +1,64 @@
+.addModal {
+    :global(.ant-modal-content) {
+        .blur-bg();
+    }
+
+    .title {
+        font-size: 20px;
+        font-weight: 500;
+        color: @text-color;
+        line-height: 28px;
+        text-align: center;
+    }
+
+    .project-body {
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .project-name {
+        width: 400px;
+        height: 62px;
+        padding: 8px 0;
+        border-bottom: 1px solid fade(@text-color, 50);
+    }
+
+    .input {
+        border: none;
+        background: transparent;
+        height: 100%;
+        width: 100%;
+        text-align: center;
+        font-size: 32px;
+        color: @text-color;
+
+        &::placeholder {
+            font-weight: 300;
+            color: fade(@text-color, 30);
+            line-height: 45px;
+        }
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    .project-type {
+        width: 100%;
+        height: 234px;
+        background: rgba(19, 23, 70, 0.08);
+        border-radius: 12px;
+        border: 1px solid #ffffff;
+        margin: 40px 0 32px 0;
+        padding: 16px;
+    }
+}
+
+.devices {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

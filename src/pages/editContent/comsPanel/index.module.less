@@ -1,0 +1,60 @@
+.ComsPanel {
+    height: calc(100% - 295px);
+    width: 240px;
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: 0px 4px 12px 0px rgba(19, 23, 70, 0.06);
+    border-radius: 12px;
+    border: 1px solid #FFFFFF;
+    overflow: scroll;
+    margin-top: 12px;
+
+    :global(.ant-collapse-ghost > .ant-collapse-item > .ant-collapse-content > .ant-collapse-content-box) {
+        padding: 0px;
+    }
+
+    .content {
+        display: flex;
+        flex-wrap: wrap;
+        // padding: 0px 12px;
+    }
+}
+
+.header {
+    font-size: 14px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #0D1722;
+    line-height: 24px;
+    height: 40px;
+    padding: 8px 16px;
+}
+
+.item {
+    margin-left: 12px;
+
+    .logo {
+        width: 64px;
+        height: 64px;
+        background: rgba(255, 255, 255, 0.8);
+        box-shadow: 0px 1px 3px 0px rgba(94, 101, 175, 0.16), 0px 1px 2px 0px rgba(37, 78, 195, 0.1);
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .img {
+            width: 48px;
+            height: 48px;
+        }
+    }
+
+    .text {
+        font-size: 13px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #0D1722;
+        line-height: 18px;
+        text-align: center;
+        margin-top: 5px;
+    }
+}

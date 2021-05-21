@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icon/bulkOutline/icon-redo</title>
+    <g id="组件属性" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.7">
+        <g id="3.-轮播组件-2" transform="translate(-313.000000, -12.000000)">
+            <g id="icon/bulkOutline/icon-redo" transform="translate(313.000000, 12.000000)">
+                <rect id="矩形" x="0" y="0" width="24" height="24"></rect>
+                <g id="编组" transform="translate(2.000000, 5.250000)">
+                    <path d="M10.5,15 C14.6421356,15 18,11.6421356 18,7.5 C18,3.35786438 14.6421356,0 10.5,0 C6.35786438,0 3,3.35786438 3,7.5" id="路径" stroke="#131746" stroke-width="1.5" stroke-linecap="round"></path>
+                    <polyline id="路径" stroke="#131746" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" transform="translate(3.042641, 5.664214) rotate(-45.000000) translate(-3.042641, -5.664214) " points="5.04264069 7.66421356 1.04264069 7.66421356 1.04264069 3.66421356"></polyline>
+                    <rect id="矩形" fill="#888BA2" x="1" y="14.25" width="18" height="1.5" rx="0.75"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
